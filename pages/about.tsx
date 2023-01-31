@@ -6,7 +6,7 @@ export default function About() {
   return (
     <div className="">
       <div className="container">
-        <Hero title="About" />a
+        <Hero title="About" />
       </div>
     </div>
   )

@@ -9,7 +9,7 @@ export default function Blog(props) {
   console.log(props)
   return (
     <div className="container">
-      <Hero title="Blog" />a
+      <Hero title="Blog" />
     </div>
   )
 }
