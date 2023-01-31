@@ -5,7 +5,7 @@ import { Hero } from '../components/organisms/Hero'
 export default function work() {
   return (
     <div className="container">
-      <Hero title="Work" />
+      <Hero title="Work" />a
     </div>
   )
 }
