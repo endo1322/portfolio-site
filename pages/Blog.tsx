@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { Hero } from './components/organisms/Hero'
+import { Hero } from '../components/organisms/Hero'
 import { getDatabase, notion } from '../lib/notion'
 
 const databaseId = process.env.NOTION_DATABASE_ID

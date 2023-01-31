@@ -11,22 +11,22 @@ export const Nav = () => {
           </Link>
         </li>
         <li>
-          <Link href="/About">
+          <Link href="/about">
             <div className="hover:text-neutral-400">About</div>
           </Link>
         </li>
         <li>
-          <Link href="/Work">
+          <Link href="/work">
             <div className="hover:text-neutral-400">Work</div>
           </Link>
         </li>
         <li>
-          <Link href="/Blog">
+          <Link href="/blog">
             <div className="hover:text-neutral-400">Blog</div>
           </Link>
         </li>
         <li>
-          <Link href="/Contact">
+          <Link href="/contact">
             <div className="hover:text-neutral-400">Contact</div>
           </Link>
         </li>
