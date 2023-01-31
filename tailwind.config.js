@@ -13,6 +13,9 @@ module.exports = {
         sm: '24px'
       }
     },
+    backgroundImage: {
+      'back-image': "url('/background.jpg')"
+    },
     extend: {}
   },
   plugins: []
