@@ -1,5 +1,5 @@
 import React from 'react'
-import Contact from '../../Contact'
+import Contact from '../../pages/Contact'
 import { Logo } from '../atoms/Logo'
 
 export const Footer = () => {
