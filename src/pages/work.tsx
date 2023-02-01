@@ -1,11 +1,11 @@
 import Link from 'next/link'
 import React from 'react'
-import { Hero } from '../components/organisms/Hero'
+import { Hero } from '@/components/organisms/Hero'
 
-export default function Contact() {
+export default function work() {
   return (
     <div className="container">
-      <Hero title="Contact" />
+      <Hero title="Work" />
     </div>
   )
 }
