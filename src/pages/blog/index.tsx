@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import React from 'react'
-import { Hero } from '../components/organisms/Hero'
-import { getDatabase, notion } from '../lib/notion'
+import { Hero } from '@/components/organisms/Hero'
+import { getDatabase, notion } from '../../lib/notion'
 
-const databaseId = process.env.NOTION_DATABASE_ID
+const databaseId: string = process.env.NOTION_DATABASE_ID
 
 export default function Blog(props) {
   console.log(props)
