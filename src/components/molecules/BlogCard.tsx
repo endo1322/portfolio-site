@@ -2,13 +2,15 @@ import React from 'react'
 import Link from 'next/link'
 
 interface BlogCardProps {
+  id: string
   title: string
   createdDate: string
 }
 
 export const BlogCard = (props: BlogCardProps) => {
+  const blogUrl: string = `/blog/${props.id}`
   return (
-    <Link href="/">
+    <Link href={blogUrl}>
       <div className="m-3 mb-5 p-2 bg-neutral-300 bg-opacity-75 rounded-lg">
         <div className="pl-2">{props.createdDate}</div>
         <div className="text-3xl pl-4">{props.title}</div>

@@ -6,7 +6,7 @@ import { BlogList } from '@/components/organisms/BlogList'
 import { getDatabase, notion } from '@/lib/notion'
 import type { QueryDatabaseResponse } from '@notionhq/client/build/src/api-endpoints.d'
 
-const databaseId: string = process.env.NOTION_DATABASE_ID
+export const databaseId: string = process.env.NOTION_DATABASE_ID
 
 interface BlogType {
   posts: QueryDatabaseResponse
