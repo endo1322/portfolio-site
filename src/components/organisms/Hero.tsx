@@ -5,8 +5,8 @@ interface HeroType {
 }
 export const Hero = (props: HeroType) => {
   return (
-    <div>
-      <div className="flex justify-center text-8xl my-9">{props.title}</div>
+    <div className="flex justify-center my-9">
+      <div className="text-8xl">{props.title}</div>
     </div>
   )
 }
