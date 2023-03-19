@@ -55,7 +55,7 @@ const renderBlock = (block) => {
       )
     case 'heading_1':
       return (
-        <h1 className="border-b-2 pb-3 mb-5">
+        <h1 className="border-b-2 pb-3 mt-9 mb-5">
           <Text
             text={value['rich_text']}
             textClassName={'my-8 text-4xl font-bold'}
@@ -177,7 +177,7 @@ export const ArticleCard = (props) => {
           </div>
         </div>
 
-        <h1 className="flex justify-center mb-7">
+        <h1 className="flex justify-center mt-3 pb-3">
           <Text textClassName={'text-4xl font-bold'} text={props.title} />
         </h1>
         <section>
