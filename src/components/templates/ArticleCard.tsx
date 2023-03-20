@@ -1,32 +1,96 @@
 import React, { Fragment } from 'react'
+import Link from 'next/link'
 
-export const Text = ({ text, textClassName }) => {
-  if (!text) {
+interface TextProps {
+  richText: Array<{
+    annotations: {
+      bold: boolean
+      code: boolean
+      color: boolean
+      italic: boolean
+      strikethrough: boolean 
+      underline: boolean
+    };
+    type: string
+    plain_text: string
+    text?: {
+      content: string
+      link: null | string
+    }
+    mention?: {
+      page: {
+        id: string
+      }
+      type: string
+    }
+  }>;
+  textClassName: string
+}
+
+export const Text = ({ richText, textClassName }: TextProps) => {
+  if (!richText) {
     return null
   }
-  return text.map((value, index) => {
-    const {
-      annotations: { bold, code, color, italic, strikethrough, underline },
-      text
-    } = value
-    return (
-      <span className={textClassName} key={index}>
-        {text.content}
-      </span>
-      // <span
-      //   className={[
-      //     bold ? styles.bold : "",
-      //     code ? styles.code : "",
-      //     italic ? styles.italic : "",
-      //     strikethrough ? styles.strikethrough : "",
-      //     underline ? styles.underline : "",
-      //   ].join(" ")}
-      //   style={color !== "default" ? { color } : {}}
-      // >
-      //   {text.link ? <a href={text.link.url}>{text.content}</a> : text.content}
-      // </span>
-    )
-  })
+  return (
+    <div>
+      {richText.map((value, index) => {
+        switch (value.type) {
+          case 'text': {
+            console.log("text", value)
+            const {
+              annotations: { bold, code, color, italic, strikethrough, underline },
+              text
+            } = value
+            return (
+              <span
+                className={
+                  textClassName + 
+                  [bold ? "font-bold" : ""] + 
+                  // [code ? styles.code : ""] +
+                  // [italic ? styles.italic : ""] +
+                  // [strikethrough ? styles.strikethrough : ""] +
+                  [underline ? "underline" : ""]
+                }
+                key={index}
+                // style={color !== "default" ? { color } : {}}
+              >
+                {text?.content}
+                {/* {text?.link ? <a href={text.link.url}>{text.content}</a> : text.content} */}
+              </span>
+            )
+          }
+          case 'mention': {
+            const {
+              annotations: { bold, code, color, italic, strikethrough, underline },
+              mention
+            } = value
+            const blogUrl: string = `/blog/${mention?.page.id}`
+            console.log("mention ", value)
+            return (
+              <Link href={blogUrl}>
+                <span
+                  className={
+                    textClassName + 
+                    [bold ? "font-bold" : ""] + 
+                    // [code ? styles.code : ""] +
+                    // [italic ? styles.italic : ""] +
+                    // [strikethrough ? styles.strikethrough : ""] +
+                    [underline ? "underline" : ""]
+                  }
+                  key={index}
+                  // style={color !== "default" ? { color } : {}}
+                >
+                  {value["plain_text"]}
+                </span>
+              </Link>
+            )
+          }
+          default:
+            return null
+        }
+      })}
+    </div>
+  )
 }
 
 const renderNestedList = (block) => {
@@ -48,30 +112,42 @@ const renderBlock = (block) => {
 
   switch (type) {
     case 'paragraph':
-      return (
-        <p>
-          <Text text={value['rich_text']} textClassName={'text-base'} />
-        </p>
-      )
+      if (value['rich_text'].length != 0) {
+        return (
+          <p className='mb-2'>
+            <Text richText={value['rich_text']} textClassName={''} />
+          </p>
+        )
+      } else {
+        return (
+          <p><br /></p>
+        )
+      }
     case 'heading_1':
       return (
         <h1 className="border-b-2 pb-3 mt-9 mb-5">
           <Text
-            text={value['rich_text']}
-            textClassName={'my-8 text-4xl font-bold'}
+            richText={value['rich_text']}
+            textClassName={'text-3xl font-bold'}
           />
         </h1>
       )
-    // case 'heading_2':
-    //   return (
-    //     <h2>
-    //       <Text text={value['rich_text']} />
-    //     </h2>
-    //   )
+    case 'heading_2':
+      return (
+        <h2 className='border-b-2 pb-1 mt-7 mb-3'>
+          <Text
+            richText={value['rich_text']}
+            textClassName={'text-2xl font-bold'}
+          />
+        </h2>
+      )
     // case 'heading_3':
     //   return (
     //     <h3>
-    //       <Text text={value['rich_text']} />
+    //       <Text
+    //         text={value['rich_text']}
+    //         textClassName={'my-8 text-4xl font-bold'}
+    //       />
     //     </h3>
     //   )
     // case 'bulleted_list_item':
@@ -178,7 +254,7 @@ export const ArticleCard = (props) => {
         </div>
 
         <h1 className="flex justify-center mt-3 pb-3">
-          <Text textClassName={'text-4xl font-bold'} text={props.title} />
+          <Text richText={props.title} textClassName={'text-4xl font-bold'}/>
         </h1>
         <section>
           {props.blocks.map((block) => (
