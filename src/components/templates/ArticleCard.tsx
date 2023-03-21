@@ -1,30 +1,17 @@
 import React, { Fragment } from 'react'
 import Link from 'next/link'
 import { BloglinkCard } from '../molecules/BloglinkCard'
+import { Block, RichText } from '@/types/Notion'
+
+interface ArticleCardProps {
+  createdDate: string
+  lastEditedDate: string
+  title: Array<RichText>
+  blocks: Array<Block>
+}
 
 interface TextProps {
-  richText: Array<{
-    annotations: {
-      bold: boolean
-      code: boolean
-      color: boolean
-      italic: boolean
-      strikethrough: boolean 
-      underline: boolean
-    };
-    type: string
-    plain_text: string
-    text?: {
-      content: string
-      link: null | string
-    }
-    mention?: {
-      page: {
-        id: string
-      }
-      type: string
-    }
-  }>;
+  richText: Array<RichText> | undefined
   textClassName: string
 }
 
@@ -39,18 +26,25 @@ export const Text = ({ richText, textClassName }: TextProps) => {
           case 'text': {
             // console.log("text", value)
             const {
-              annotations: { bold, code, color, italic, strikethrough, underline },
+              annotations: {
+                bold,
+                code,
+                color,
+                italic,
+                strikethrough,
+                underline
+              },
               text
             } = value
             return (
               <span
                 className={
-                  textClassName + 
-                  [bold ? "font-bold" : ""] + 
+                  textClassName +
+                  [bold ? 'font-bold' : ''] +
                   // [code ? styles.code : ""] +
                   // [italic ? styles.italic : ""] +
                   // [strikethrough ? styles.strikethrough : ""] +
-                  [underline ? "underline" : ""]
+                  [underline ? 'underline' : '']
                 }
                 key={index}
                 // style={color !== "default" ? { color } : {}}
@@ -62,18 +56,29 @@ export const Text = ({ richText, textClassName }: TextProps) => {
           }
           case 'mention': {
             const {
-              annotations: { bold, code, color, italic, strikethrough, underline },
+              annotations: {
+                bold,
+                code,
+                color,
+                italic,
+                strikethrough,
+                underline
+              },
               mention
             } = value
             const blogUrl: string = `/blog/${mention?.page.id}`
             // console.log("mention ", value)
             return (
-              <BloglinkCard url={`/blog/${mention?.page.id}`} title={value['plain_text']} /> 
+              <BloglinkCard
+                url={`/blog/${mention?.page.id}`}
+                title={value['plain_text']}
+                key={index}
+              />
               // <Link href={blogUrl} key={index}>
               //   <span
               //     className={
-              //       textClassName + 
-              //       [bold ? "font-bold" : ""] + 
+              //       textClassName +
+              //       [bold ? "font-bold" : ""] +
               //       // [code ? styles.code : ""] +
               //       // [italic ? styles.italic : ""] +
               //       // [strikethrough ? styles.strikethrough : ""] +
@@ -94,50 +99,55 @@ export const Text = ({ richText, textClassName }: TextProps) => {
   )
 }
 
-const renderNestedList = (block) => {
-  const { type } = block
-  const value = block[type]
-  if (!value) return null
+// const renderNestedList = (block: Block) => {
+//   const { type } = block
+//   const value = block[type]
+//   if (!value) return null
 
-  const isNumberedList = value.children[0].type === 'numbered_list_item'
+//   const isNumberedList = value.children[0].type === 'numbered_list_item'
 
-  if (isNumberedList) {
-    return <ol>{value.children.map((block) => renderBlock(block))}</ol>
-  }
-  return <ul>{value.children.map((block) => renderBlock(block))}</ul>
-}
+//   if (isNumberedList) {
+//     return <ol>{value.children.map((block) => renderBlock(block))}</ol>
+//   }
+//   return <ul>{value.children.map((block) => renderBlock(block))}</ul>
+// }
 
-const renderBlock = (block) => {
+const renderBlock = (block: Block) => {
   const { type, id } = block
-  const value = block[type]
+  // const value = block[type as keyof Block]
 
   switch (type) {
     case 'paragraph':
-      if (value['rich_text'].length != 0) {
+      if (block['paragraph']?.['rich_text'].length != 0) {
         return (
-          <div className='mb-2'>
-            <Text richText={value['rich_text']} textClassName={''} />
+          <div className="mb-2">
+            <Text
+              richText={block['paragraph']?.['rich_text']}
+              textClassName={''}
+            />
           </div>
         )
       } else {
         return (
-          <p><br /></p>
+          <div>
+            <br />
+          </div>
         )
       }
     case 'heading_1':
       return (
         <h1 className="border-b-2 pb-3 mt-9 mb-5">
           <Text
-            richText={value['rich_text']}
+            richText={block['heading_1']?.['rich_text']}
             textClassName={'text-3xl font-bold'}
           />
         </h1>
       )
     case 'heading_2':
       return (
-        <h2 className='border-b-2 pb-1 mt-7 mb-3'>
+        <h2 className="border-b-2 pb-1 mt-7 mb-3">
           <Text
-            richText={value['rich_text']}
+            richText={block['heading_2']?.['rich_text']}
             textClassName={'text-2xl font-bold'}
           />
         </h2>
@@ -232,14 +242,14 @@ const renderBlock = (block) => {
     //     </a>
     //   )
     default:
-      console.log('default', value['rich_text'])
+      console.log('default', block)
       return `❌ Unsupported block (${
         type === 'unsupported' ? 'unsupported by Notion API' : type
       })`
   }
 }
 
-export const ArticleCard = (props) => {
+export const ArticleCard = (props: ArticleCardProps) => {
   return (
     <div className="max-w-3xl bg-white rounded-lg m-auto">
       <article className="py-8 px-6">
@@ -259,7 +269,7 @@ export const ArticleCard = (props) => {
         </div>
 
         <h1 className="flex justify-center mt-3 pb-3">
-          <Text richText={props.title} textClassName={'text-4xl font-bold'}/>
+          <Text richText={props.title} textClassName={'text-4xl font-bold'} />
         </h1>
         <section>
           {props.blocks.map((block) => (

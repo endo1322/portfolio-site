@@ -5,27 +5,26 @@ import { Hero } from '@/components/organisms/Hero'
 import { BlogList } from '@/components/organisms/BlogList'
 import { getDatabase, notion } from '@/lib/notion'
 import type { QueryDatabaseResponse } from '@notionhq/client/build/src/api-endpoints.d'
+import { Page } from '@/types/Notion'
 
-export const databaseId: string = process.env.NOTION_DATABASE_ID
+export const databaseId: string = process.env.NOTION_DATABASE_ID || ''
 
 interface BlogType {
-  posts: QueryDatabaseResponse
+  posts: Array<Page>
 }
 
-interface QueryDatabaseResponseExtend extends QueryDatabaseResponse {
-  length: number
-  slice: (start: number, end: number) => QueryDatabaseResponse
-}
+// interface QueryDatabaseResponseExtend extends QueryDatabaseResponse {
+//   length: number
+//   slice: (start: number, end: number) => QueryDatabaseResponse
+// }
 
 export default function Blog(props: BlogType) {
-  const blogList: QueryDatabaseResponseExtend = props.posts
+  console.log(props)
+  const blogList = props.posts
   const itemsPerPage: number = 10
   const [itemsOffset, setItemsOffset] = useState<number>(0)
   const endOffset: number = itemsOffset + itemsPerPage
-  const currentCard: QueryDatabaseResponse = blogList.slice(
-    itemsOffset,
-    endOffset
-  )
+  const currentCard = blogList.slice(itemsOffset, endOffset)
   const pageCount: number = Math.ceil(blogList.length / itemsPerPage)
 
   const handlePageClick = (e: { selected: number }) => {
@@ -70,6 +69,10 @@ export default function Blog(props: BlogType) {
 // ISR
 export const getStaticProps = async () => {
   const database = await getDatabase(databaseId)
+
+  const timestamp = new Date().toLocaleString()
+  const message = `${timestamp}にgetStaticPropsが実行されました。`
+  console.log('blog/index.tsx', message)
 
   return {
     props: {

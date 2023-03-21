@@ -4,7 +4,7 @@ import Link from 'next/link'
 interface BlogCardProps {
   id: string
   title: string
-  createdDate: string
+  createdDate: RegExpMatchArray | null
 }
 
 export const BlogCard = (props: BlogCardProps) => {
