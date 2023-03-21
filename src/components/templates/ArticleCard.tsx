@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react'
 import Link from 'next/link'
+import { BloglinkCard } from '../molecules/BloglinkCard'
 
 interface TextProps {
   richText: Array<{
@@ -36,7 +37,7 @@ export const Text = ({ richText, textClassName }: TextProps) => {
       {richText.map((value, index) => {
         switch (value.type) {
           case 'text': {
-            console.log("text", value)
+            // console.log("text", value)
             const {
               annotations: { bold, code, color, italic, strikethrough, underline },
               text
@@ -65,24 +66,24 @@ export const Text = ({ richText, textClassName }: TextProps) => {
               mention
             } = value
             const blogUrl: string = `/blog/${mention?.page.id}`
-            console.log("mention ", value)
+            // console.log("mention ", value)
             return (
-              <Link href={blogUrl}>
-                <span
-                  className={
-                    textClassName + 
-                    [bold ? "font-bold" : ""] + 
-                    // [code ? styles.code : ""] +
-                    // [italic ? styles.italic : ""] +
-                    // [strikethrough ? styles.strikethrough : ""] +
-                    [underline ? "underline" : ""]
-                  }
-                  key={index}
-                  // style={color !== "default" ? { color } : {}}
-                >
-                  {value["plain_text"]}
-                </span>
-              </Link>
+              <BloglinkCard url={`/blog/${mention?.page.id}`} title={value['plain_text']} /> 
+              // <Link href={blogUrl} key={index}>
+              //   <span
+              //     className={
+              //       textClassName + 
+              //       [bold ? "font-bold" : ""] + 
+              //       // [code ? styles.code : ""] +
+              //       // [italic ? styles.italic : ""] +
+              //       // [strikethrough ? styles.strikethrough : ""] +
+              //       [underline ? "underline" : ""]
+              //     }
+              //     // style={color !== "default" ? { color } : {}}
+              //   >
+              //     {value["plain_text"]}
+              //   </span>
+              // </Link>
             )
           }
           default:
@@ -114,9 +115,9 @@ const renderBlock = (block) => {
     case 'paragraph':
       if (value['rich_text'].length != 0) {
         return (
-          <p className='mb-2'>
+          <div className='mb-2'>
             <Text richText={value['rich_text']} textClassName={''} />
-          </p>
+          </div>
         )
       } else {
         return (
@@ -149,6 +150,10 @@ const renderBlock = (block) => {
     //         textClassName={'my-8 text-4xl font-bold'}
     //       />
     //     </h3>
+    //   )
+    // case 'callout':
+    //   return (
+    //     <OutlineBlock />
     //   )
     // case 'bulleted_list_item':
     // case 'numbered_list_item':
