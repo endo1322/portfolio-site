@@ -24,7 +24,7 @@ export const SelectForm = (props: SelectFormProps) => {
       >
         {selectName}
         {/* <span className="flex flex-col text-red-500">(必須)</span> */}
-        {/* <p className="text-red-500">{errors[selectType]?.message}</p> */}
+        <p className="text-red-500">{errors[selectType]?.message}</p>
       </label>
       <div className="w-full ml-5">
         <select
@@ -37,12 +37,6 @@ export const SelectForm = (props: SelectFormProps) => {
             </option>
           ))}
         </select>
-        {/* <select
-          {...register(selectType, { required: '(必須)' })}
-          className="w-full border border-neutral-300 rounded-lg p-2 text-lg"
-          //   type={selectType}
-          //   placeholder={selectPlaceholder}
-        /> */}
       </div>
     </div>
   )

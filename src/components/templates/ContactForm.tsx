@@ -20,9 +20,13 @@ export const ContactForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useFormMethods
-  const onSubmit: SubmitHandler<FormInputs> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    reset()
+    console.log(data)
+  }
 
   const selectItems: SelectItemType[] = [
     { value: '', name: '選択してください' },
@@ -35,11 +39,7 @@ export const ContactForm = () => {
     <div className="max-w-3xl bg-white rounded-lg m-auto mb-12">
       <FormProvider {...useFormMethods}>
         <form className="flex flex-col p-10" onSubmit={handleSubmit(onSubmit)}>
-          <InputForm
-            name={'名前'}
-            type={'name'}
-            placeholder={'問い合わせ 太郎'}
-          />
+          <InputForm name={'名前'} type={'name'} placeholder={'問合 太郎'} />
           <InputForm
             name={'メールアドレス'}
             type={'email'}
@@ -49,7 +49,7 @@ export const ContactForm = () => {
           <TextareaForm
             name={'内容'}
             type={'content'}
-            placeholder={'意見、質問内容'}
+            placeholder={'意見、質問内容等'}
           />
           <Button type={'submit'} value={'送信する'} />
         </form>
