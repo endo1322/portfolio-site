@@ -1,5 +1,6 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 
 type InputFormProps = {
   name: string
@@ -22,8 +23,12 @@ export const InputForm = (props: InputFormProps) => {
         htmlFor=""
       >
         {inputName}
-        {/* <span className="flex flex-col text-red-500">(必須)</span> */}
-        <p className="text-red-500">{errors[inputType]?.message}</p>
+        <ErrorMessage
+          className="text-red-500"
+          errors={errors}
+          name={inputType}
+          as="p"
+        />
       </label>
       <div className="w-full ml-5">
         <input

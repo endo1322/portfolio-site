@@ -1,6 +1,7 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
 import { SelectItemType } from '@/components/templates/ContactForm'
+import { ErrorMessage } from '@hookform/error-message'
 
 type SelectFormProps = {
   name: string
@@ -23,8 +24,12 @@ export const SelectForm = (props: SelectFormProps) => {
         htmlFor=""
       >
         {selectName}
-        {/* <span className="flex flex-col text-red-500">(必須)</span> */}
-        <p className="text-red-500">{errors[selectType]?.message}</p>
+        <ErrorMessage
+          className="text-red-500"
+          errors={errors}
+          name={selectType}
+          as="p"
+        />
       </label>
       <div className="w-full ml-5">
         <select

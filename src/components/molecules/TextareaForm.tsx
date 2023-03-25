@@ -1,5 +1,6 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
+import { ErrorMessage } from '@hookform/error-message'
 
 type TextareaFormProps = {
   name: string
@@ -22,8 +23,12 @@ export const TextareaForm = (props: TextareaFormProps) => {
         htmlFor=""
       >
         {textareaName}
-        {/* <span className="flex flex-col text-red-500">(必須)</span> */}
-        <p className="text-red-500">{errors[textareaType]?.message}</p>
+        <ErrorMessage
+          className="text-red-500"
+          errors={errors}
+          name={textareaType}
+          as="p"
+        />
       </label>
       <div className="w-full ml-5">
         <textarea
