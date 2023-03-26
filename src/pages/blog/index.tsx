@@ -6,7 +6,7 @@ import { BlogList } from '@/components/organisms/BlogList'
 import { getDatabase, notion } from '@/lib/notion'
 import { Page } from '@/types/Notion'
 
-export const databaseId: string = process.env.NOTION_BLOG_DATABASE_ID || ''
+export const databaseId: string = process.env.NOTION_TEST_BLOG_DATABASE_ID || ''
 
 interface BlogType {
   posts: Array<Page>
