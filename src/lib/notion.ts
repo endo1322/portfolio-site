@@ -1,6 +1,7 @@
 import React from 'react'
 import { Client } from '@notionhq/client'
 import { ContactType } from '@/components/templates/ContactForm'
+import { postPage } from '@/types/Notion'
 
 export const notion = new Client({
   auth: process.env.NOTION_TOKEN
@@ -39,6 +40,48 @@ export const postContactPage = async (
   databaseId: string,
   pageContents: ContactType
 ) => {
+  // let request: postPage = {
+  //   parent: {
+  //     type: 'database_id',
+  //     database_id: databaseId
+  //   },
+  //   properties: {}
+  // }
+  // pageContents.name
+  //   ? (request.properties.Name = {
+  //       title: [
+  //         {
+  //           text: {
+  //             content: pageContents.name
+  //           }
+  //         }
+  //       ]
+  //     })
+  //   : null
+  // pageContents.email
+  //   ? (request.properties.Email = {
+  //       email: pageContents.email
+  //     })
+  //   : null
+  // pageContents.select
+  //   ? (request.properties.Select = {
+  //       select: {
+  //         name: pageContents.select
+  //       }
+  //     })
+  //   : null
+  // pageContents.content
+  //   ? (request.properties.Content = {
+  //       rich_text: [
+  //         {
+  //           text: {
+  //             content: pageContents.content
+  //           }
+  //         }
+  //       ]
+  //     })
+  //   : null
+
   const response = await notion.pages.create({
     parent: {
       type: 'database_id',

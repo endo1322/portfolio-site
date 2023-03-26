@@ -7,6 +7,7 @@ type SelectFormProps = {
   name: string
   type: string
   selectItems: SelectItemType[]
+  required: string | false
 }
 
 export const SelectForm = (props: SelectFormProps) => {
@@ -17,6 +18,7 @@ export const SelectForm = (props: SelectFormProps) => {
   const selectName: string = props.name
   const selectType: string = props.type
   const selectItems: SelectItemType[] = props.selectItems
+  const selectRequired: string | false = props.required
   return (
     <div className="flex mb-8">
       <label
@@ -24,16 +26,17 @@ export const SelectForm = (props: SelectFormProps) => {
         htmlFor=""
       >
         {selectName}
-        <ErrorMessage
-          className="text-red-500"
-          errors={errors}
-          name={selectType}
-          as="p"
-        />
+        {selectRequired ? (
+          <p className="text-red-500 font-bold">(必須)</p>
+        ) : (
+          <p className="text-gray-400 font-bold">(任意)</p>
+        )}
       </label>
       <div className="w-full ml-5">
         <select
-          {...register(selectType, { required: '(必須)' })}
+          {...register(selectType, {
+            required: selectRequired
+          })}
           className="w-1/2 border border-neutral-300 rounded-lg p-2 text-lg"
         >
           {selectItems.map((item, index) => (
@@ -42,6 +45,12 @@ export const SelectForm = (props: SelectFormProps) => {
             </option>
           ))}
         </select>
+        <ErrorMessage
+          className="text-red-500"
+          errors={errors}
+          name={selectType}
+          as="p"
+        />
       </div>
     </div>
   )

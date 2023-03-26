@@ -94,3 +94,38 @@ export type Block = {
   }
   type: string
 }
+
+export type postPage = {
+  parent: {
+    type: string
+    database_id: string
+  }
+  properties: {
+    Name?: {
+      title: [
+        {
+          text: {
+            content: string
+          }
+        }
+      ]
+    }
+    Email?: {
+      email: string
+    }
+    Select?: {
+      select: {
+        name: string
+      }
+    }
+    Content?: {
+      rich_text: [
+        {
+          text: {
+            content: string
+          }
+        }
+      ]
+    }
+  }
+}

@@ -6,6 +6,7 @@ type TextareaFormProps = {
   name: string
   type: string
   placeholder: string
+  required: string | false
 }
 
 export const TextareaForm = (props: TextareaFormProps) => {
@@ -16,6 +17,7 @@ export const TextareaForm = (props: TextareaFormProps) => {
   const textareaName: string = props.name
   const textareaType: string = props.type
   const textareaPlaceholder: string = props.placeholder
+  const textRequired: string | false = props.required
   return (
     <div className="flex mb-8">
       <label
@@ -23,19 +25,26 @@ export const TextareaForm = (props: TextareaFormProps) => {
         htmlFor=""
       >
         {textareaName}
+        {textRequired ? (
+          <p className="text-red-500 font-bold">(必須)</p>
+        ) : (
+          <p className="text-gray-400 font-bold">(任意)</p>
+        )}
+      </label>
+      <div className="w-full ml-5">
+        <textarea
+          {...register(textareaType, {
+            required: textRequired
+          })}
+          rows={5}
+          className="w-full border border-neutral-300 rounded-lg p-2 text-lg"
+          placeholder={textareaPlaceholder}
+        />
         <ErrorMessage
           className="text-red-500"
           errors={errors}
           name={textareaType}
           as="p"
-        />
-      </label>
-      <div className="w-full ml-5">
-        <textarea
-          {...register(textareaType, { required: '(必須)' })}
-          rows={5}
-          className="w-full border border-neutral-300 rounded-lg p-2 text-lg"
-          placeholder={textareaPlaceholder}
         />
       </div>
     </div>
