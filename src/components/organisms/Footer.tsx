@@ -1,6 +1,7 @@
 import React from 'react'
 import Contact from '@/pages/contact'
 import { Logo } from '../atoms/Logo'
+import Link from 'next/link'
 
 export const Footer = () => {
   return (
@@ -8,7 +9,7 @@ export const Footer = () => {
       <div className="flex flex-col items-center max-w-7xl w-11/12 text-3xl mx-auto">
         <div className="flex justify-center items-center">
           <Logo className="text-8xl" />
-          <div>Contact me</div>
+          <Link href="/contact">Contact me</Link>
         </div>
         <div>© 2023 Yuto Endo</div>
       </div>
