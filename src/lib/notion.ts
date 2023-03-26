@@ -73,7 +73,5 @@ export const postContactPage = async (
       }
     }
   })
-  // type(response)
-  console.log(typeof response)
   return response
 }
