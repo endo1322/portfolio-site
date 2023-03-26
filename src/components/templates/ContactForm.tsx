@@ -15,17 +15,32 @@ export type SelectItemType = {
   name: string
 }
 
+export type ContactType = {
+  name: string
+  email: string
+  select: string
+  content: string
+}
+
 export const ContactForm = () => {
-  const useFormMethods = useForm<FormInputs>()
+  const useFormMethods = useForm<ContactType>()
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors }
   } = useFormMethods
-  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+  const onSubmit: SubmitHandler<ContactType> = async (data) => {
+    const response = await fetch('api/postContactForm', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+    const result = await response.json()
+    console.log(result)
     reset()
-    console.log(data)
   }
 
   const selectItems: SelectItemType[] = [

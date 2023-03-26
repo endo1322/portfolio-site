@@ -4,19 +4,13 @@ import ReactPaginate from 'react-paginate'
 import { Hero } from '@/components/organisms/Hero'
 import { BlogList } from '@/components/organisms/BlogList'
 import { getDatabase, notion } from '@/lib/notion'
-import type { QueryDatabaseResponse } from '@notionhq/client/build/src/api-endpoints.d'
 import { Page } from '@/types/Notion'
 
-export const databaseId: string = process.env.NOTION_DATABASE_ID || ''
+export const databaseId: string = process.env.NOTION_BLOG_DATABASE_ID || ''
 
 interface BlogType {
   posts: Array<Page>
 }
-
-// interface QueryDatabaseResponseExtend extends QueryDatabaseResponse {
-//   length: number
-//   slice: (start: number, end: number) => QueryDatabaseResponse
-// }
 
 export default function Blog(props: BlogType) {
   console.log(props)
