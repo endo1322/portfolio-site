@@ -8,7 +8,7 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="bg-back-image bg-fixed text-neutral-900">
+    <div className="bg-back-image bg-fixed text-neutral-900 min-h-screen relative pb-48">
       <Header />
       {children}
       <Footer />
