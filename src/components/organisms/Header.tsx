@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useMediaQuery } from 'react-responsive'
 import { Logo } from '../atoms/Logo'
 import { Nav } from '../molecules/Nav'
@@ -9,11 +9,14 @@ import { Hamburger } from './Hamburger'
 
 export const Header = () => {
   const [open, setOpen] = useState<boolean>(false)
-  const isDesktop: boolean = useMediaQuery({ query: '(min-width: 768px)' })
-  const classes: string[] = []
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  const className: string[] = []
   open === false
-    ? classes.push("translate-x-full")
-    : classes.push("translate-x-0")
+    ? className.push("translate-x-full")
+    : className.push("translate-x-0")
   const onClick = (e: boolean) => {
     setOpen(e)
   }
@@ -29,11 +32,28 @@ export const Header = () => {
         }
         </div>
         <div className=''>
-          {isDesktop
-          ? <Nav />
-          : <Hamburger className={classes} onClick={() => onClick(false)}/>}
+          {mounted
+          && <div><MobileOrDesk className={className} onClick={() => onClick(false)}/></div>}
         </div>
       </div>
     </header>
+  )
+}
+
+type MobileOrDeskProps = {
+  className: string[]
+  onClick: any
+}
+
+// useMediaQueryがクライアント側でしか動作しない
+// →next.jsのサーバサイドのビルドと違った結果が返ってきてしまう。
+const MobileOrDesk = (props: MobileOrDeskProps) => {
+  const isDesktop: boolean = useMediaQuery({ query: '(min-width: 768px)' })
+  return(
+    <>
+    {isDesktop
+      ? <Nav />
+      : <Hamburger className={props.className} onClick={props.onClick} />}
+    </>
   )
 }

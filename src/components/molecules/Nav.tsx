@@ -4,7 +4,7 @@ import React from 'react'
 export const Nav = () => {
   return (
     <nav>
-      <ul className={`flex flexf-row gap-5 pr-5`}>
+      <ul className="flex flexf-row gap-5 pr-5">
         <li>
           <Link href="/">
             <div className=" hover:text-neutral-400 text-3xl">Home</div>

@@ -7,7 +7,6 @@ type HamburgerProps = {
   }
 
 export const Hamburger = (props: HamburgerProps) => {
-    console.log(props)
     return (
         <nav className={`fixed top-16 left-0 w-full h-full z-50mt-2.5 bg-neutral-300 opacity-90 pb-48 transition transform duration-300 ${props.className.join(' ')}`}>
           <ul className={`flex flex-col h-full`}>
