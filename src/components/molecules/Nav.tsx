@@ -1,36 +1,31 @@
 import Link from 'next/link'
 import React from 'react'
 
-type NavProps = {
-  className: string[]
-  onClick?: any
-}
-
-export const Nav = (props: NavProps) => {
+export const Nav = () => {
   return (
     <nav>
-      <ul className={`flex md:flex-row flex-col md:gap-5 md:pr-5 z-50 md:z-0 absolute md:relative ${props.className.join(' ')}`}>
-        <li className='mx-auto my-auto md:my-0' onClick={props.onClick}>
+      <ul className={`flex flexf-row gap-5 pr-5`}>
+        <li>
           <Link href="/">
             <div className=" hover:text-neutral-400 text-3xl">Home</div>
           </Link>
         </li>
-        <li className='mx-auto my-auto md:my-0' onClick={props.onClick}>
+        <li>
           <Link href="/about">
             <div className="hover:text-neutral-400 text-3xl">About</div>
           </Link>
         </li>
-        <li className='mx-auto my-auto md:my-0' onClick={props.onClick}>
+        <li>
           <Link href="/work">
             <div className="hover:text-neutral-400 text-3xl">Work</div>
           </Link>
         </li>
-        <li className='mx-auto my-auto md:my-0' onClick={props.onClick}>
+        <li>
           <Link href="/blog">
             <div className="hover:text-neutral-400 text-3xl">Blog</div>
           </Link>
         </li>
-        <li className='mx-auto my-auto md:my-0' onClick={props.onClick}>
+        <li>
           <Link href="/contact">
             <div className="hover:text-neutral-400 text-3xl">Contact</div>
           </Link>
