@@ -1,13 +1,38 @@
-import React from 'react'
+import React, {useState} from 'react'
+import { useMediaQuery } from 'react-responsive'
 import { Logo } from '../atoms/Logo'
 import { Nav } from '../molecules/Nav'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import { Hamburger } from './Hamburger'
 
 export const Header = () => {
+  const [open, setOpen] = useState<boolean>(false)
+  const isDesktop: boolean = useMediaQuery({ query: '(min-width: 768px)' })
+  const classes: string[] = []
+  open === false
+    ? classes.push("translate-x-full")
+    : classes.push("translate-x-0")
+  const onClick = (e: boolean) => {
+    setOpen(e)
+  }
+
   return (
-    <header className="sticky top-0 z-50 bg-neutral-300 bg-opacity-75 drop-shadow">
-      <div className="flex max-w-7xl w-11/12 mx-auto justify-between items-center text-3xl py-2.5">
-        <Logo className="text-6xl" />
-        <Nav />
+    <header className="sticky top-0 z-50 bg-neutral-300 bg-opacity-90 max-w-full h-20">
+      <div className="md:flex md:max-w-7xl w-11/12 md:mx-auto md:justify-between md:items-center py-2.5">
+        <div className='flex w-11/12 mx-auto justify-between items-center'>
+          <Logo className="text-6xl" />
+          {open === false
+          ? <FontAwesomeIcon className="md:hidden cursor-pointer" icon={faBars} size="2xl" style={{color: "#171717"}} onClick={() => onClick(true)} />
+          : <FontAwesomeIcon className="md:hidden cursor-pointer" icon={faXmark} size="2xl" style={{color: "#171717"}} onClick={() => onClick(false)} />
+        }
+        </div>
+        <div className=''>
+          {isDesktop
+          ? <Nav />
+          : <Hamburger className={classes} onClick={() => onClick(false)}/>}
+        </div>
       </div>
     </header>
   )
