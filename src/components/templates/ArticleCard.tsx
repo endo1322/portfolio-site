@@ -1,13 +1,12 @@
-import React, { Fragment } from 'react'
+import React, { Children, Fragment } from 'react'
 import Link from 'next/link'
 import { BloglinkCard } from '../molecules/BloglinkCard'
 import { Block, RichText } from '@/types/Notion'
 
 interface ArticleCardProps {
-  createdDate: string
-  lastEditedDate: string
   title: Array<RichText>
   blocks: Array<Block>
+  children?: JSX.Element
 }
 
 interface TextProps {
@@ -152,6 +151,16 @@ const renderBlock = (block: Block) => {
           />
         </h2>
       )
+    case 'bulleted_list_item':
+      return (
+        <div className="flex mb-2">
+          <span className="mr-1 font-bold">・</span>
+          <Text
+            richText={block['bulleted_list_item']?.['rich_text']}
+            textClassName={''}
+          />
+        </div>
+      )
     // case 'heading_3':
     //   return (
     //     <h3>
@@ -253,21 +262,7 @@ export const ArticleCard = (props: ArticleCardProps) => {
   return (
     <div className="max-w-3xl bg-white rounded-lg m-auto">
       <article className="py-8 px-6">
-        <div className="flex text-sm">
-          <div className="mr-2">
-            投稿日
-            <time className="ml-1" dateTime={props.createdDate}>
-              {props.createdDate.match('\\d{4}-\\d{2}-\\d{2}')}
-            </time>
-          </div>
-          <div>
-            更新日
-            <time className="ml-1" dateTime={props.lastEditedDate}>
-              {props.lastEditedDate.match('\\d{4}-\\d{2}-\\d{2}')}
-            </time>
-          </div>
-        </div>
-
+        {props.children}
         <h1 className="flex justify-center mt-3 pb-3">
           <Text richText={props.title} textClassName={'text-4xl font-bold'} />
         </h1>

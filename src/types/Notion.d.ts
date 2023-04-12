@@ -19,19 +19,17 @@ export type Page = {
     database_id: string
   }
   properties: {
-    Title: {
+    title: {
       id: string
       type: string
       title: Array<RichText>
     }
-    Tag: {
+    tag: {
       id: string
       type: string
       //   multi_select: Array
     }
   }
-  // :
-  // {Tag: {…}, Title: {…}}
   url: string
 }
 
@@ -88,6 +86,10 @@ export type Block = {
     color: string
     is_toggleable: boolean
   }
+  bulleted_list_item?: {
+    rich_text: Array<RichText>
+    color: string
+  }
   parent: {
     type: string
     page_id: string
@@ -101,7 +103,7 @@ export type postPage = {
     database_id: string
   }
   properties: {
-    Name?: {
+    name?: {
       title: [
         {
           text: {
@@ -110,15 +112,15 @@ export type postPage = {
         }
       ]
     }
-    Email?: {
+    email?: {
       email: string
     }
-    Select?: {
+    select?: {
       select: {
         name: string
       }
     }
-    Content?: {
+    content?: {
       rich_text: [
         {
           text: {

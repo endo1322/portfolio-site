@@ -2,7 +2,7 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import { ParsedUrlQuery } from 'node:querystring'
 import Link from 'next/link'
 import { getBlocks, getDatabase, getPage } from '@/lib/notion'
-import { databaseId } from '.'
+import { databaseId } from '@/pages/blog/index'
 import { ArticleCard } from '@/components/templates/ArticleCard'
 import { Hero } from '@/components/organisms/Hero'
 import { Page, Block } from '@/types/Notion'
@@ -27,11 +27,24 @@ export default function BlogPage(props: BloggPageProps) {
     <div className="container">
       <Hero title="Blog" />
       <ArticleCard
-        createdDate={props.page['created_time']}
-        lastEditedDate={props.page['last_edited_time']}
-        title={props.page.properties.Title.title}
+        title={props.page.properties.title.title}
         blocks={props.blocks}
-      />
+      >
+        <div className="flex text-sm">
+          <div className="mr-2">
+            投稿日
+            <time className="ml-1" dateTime={props.page['created_time']}>
+              {props.page['created_time'].match('\\d{4}-\\d{2}-\\d{2}')}
+            </time>
+          </div>
+          <div>
+            更新日
+            <time className="ml-1" dateTime={props.page['last_edited_time']}>
+              {props.page['last_edited_time'].match('\\d{4}-\\d{2}-\\d{2}')}
+            </time>
+          </div>
+        </div>
+      </ArticleCard>
       <Link href="/blog">
         <div className="flex justify-center my-2 text-lg">← Go home</div>
       </Link>
@@ -57,9 +70,7 @@ export const getStaticProps: GetStaticProps<Props, Params> = async (
 
   const timestamp = new Date().toLocaleString()
   const message = `${timestamp}にgetStaticPropsが実行されました。`
-  console.log('blog/[id].tsx', message)
-
-  //   console.log(id)
+  console.log('pages/blog/[id].tsx', message)
 
   return {
     props: {
