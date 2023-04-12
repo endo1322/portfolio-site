@@ -18,7 +18,15 @@ export default function About(props: AboutType) {
   return (
     <div className="">
       <div className="container">
-        <Hero title="About" />
+        <Hero
+          title="About"
+          text={[
+            '　当サイトは、Web業界を目指す一般理系大学生によるポートフォリオサイトです。',
+            '　特にエンジニアの方やエンジニアを目指している方に向けて制作しており、Blogページでは情報技術に関する情報も発信しています。ぜひお立ち寄りください。',
+            '　今後もブログや成果物、サイト自体など随時更新していく予定ですので、お楽しみにお待ちください。',
+            '　以下に簡単な自己紹介をさせていただきます。'
+          ]}
+        />
         <ArticleCard
           title={props.page.properties.title.title}
           blocks={props.blocks}
