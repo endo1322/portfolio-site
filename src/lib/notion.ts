@@ -48,7 +48,7 @@ export const postContactPage = async (
   //   properties: {}
   // }
   // pageContents.name
-  //   ? (request.properties.Name = {
+  //   ? (request.properties.name = {
   //       title: [
   //         {
   //           text: {
@@ -59,19 +59,19 @@ export const postContactPage = async (
   //     })
   //   : null
   // pageContents.email
-  //   ? (request.properties.Email = {
+  //   ? (request.properties.email = {
   //       email: pageContents.email
   //     })
   //   : null
   // pageContents.select
-  //   ? (request.properties.Select = {
+  //   ? (request.properties.select = {
   //       select: {
   //         name: pageContents.select
   //       }
   //     })
   //   : null
   // pageContents.content
-  //   ? (request.properties.Content = {
+  //   ? (request.properties.content = {
   //       rich_text: [
   //         {
   //           text: {
@@ -88,7 +88,7 @@ export const postContactPage = async (
       database_id: databaseId
     },
     properties: {
-      Name: {
+      name: {
         title: [
           {
             text: {
@@ -97,15 +97,15 @@ export const postContactPage = async (
           }
         ]
       },
-      Email: {
+      email: {
         email: pageContents.email
       },
-      Select: {
+      select: {
         select: {
           name: pageContents.select
         }
       },
-      Content: {
+      content: {
         rich_text: [
           {
             text: {

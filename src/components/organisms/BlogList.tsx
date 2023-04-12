@@ -18,7 +18,7 @@ export const BlogList = (props: BlogListType) => {
           key={index}
           id={value['id']}
           createdDate={value['created_time'].match('\\d{4}-\\d{2}-\\d{2}')}
-          title={value['properties']['Title']['title'][0]['plain_text']}
+          title={value['properties']['title']['title'][0]['plain_text']}
         />
       ))}
     </div>
