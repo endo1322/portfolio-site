@@ -2,6 +2,7 @@ import React, { Children, Fragment } from 'react'
 import Link from 'next/link'
 import { BloglinkCard } from '../molecules/BloglinkCard'
 import { Block, RichText } from '@/types/Notion'
+import { Frame } from '@/components/atoms/Frame'
 
 interface ArticleCardProps {
   title: Array<RichText>
@@ -260,7 +261,7 @@ const renderBlock = (block: Block) => {
 
 export const ArticleCard = (props: ArticleCardProps) => {
   return (
-    <div className="max-w-3xl bg-white rounded-lg m-auto">
+    <Frame>
       <article className="py-8 px-6">
         {props.children}
         <h1 className="flex justify-center mt-3 pb-3">
@@ -272,6 +273,6 @@ export const ArticleCard = (props: ArticleCardProps) => {
           ))}
         </section>
       </article>
-    </div>
+    </Frame>
   )
 }
