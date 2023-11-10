@@ -1,13 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
 
-interface LogoProps {
-  className: string
-}
-export const Logo = (props: LogoProps) => {
+export const Logo = () => {
   return (
     <Link href="/">
-      <div className={props.className}>LOGO</div>
+      <img src="logo.svg" alt="site logo" />
     </Link>
   )
 }
