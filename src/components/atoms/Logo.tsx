@@ -7,7 +7,7 @@ interface LogoProps {
 export const Logo = (props: LogoProps) => {
   return (
     <Link href="/">
-      <div className={props.className}>LOGO</div>
+      <img src="logo.svg" alt="site logo" />
     </Link>
   )
 }
