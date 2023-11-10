@@ -9,7 +9,7 @@ export const Footer = () => {
       <div className="py-3">
         <div className="flex flex-col items-center max-w-7xl w-11/12 text-3xl mx-auto">
           <div className="flex justify-center items-center">
-            <Logo className="text-8xl" />
+            <Logo />
             <Link href="/contact">Contact me</Link>
           </div>
           <div>© 2023 Yuto Endo</div>
