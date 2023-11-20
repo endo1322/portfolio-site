@@ -5,6 +5,7 @@ import { Hero } from '@/components/organisms/Hero'
 import { ArticleCard } from '@/components/templates/ArticleCard'
 import { getBlocks, getPage } from '@/lib/notion'
 import { Block, Page } from '@/types/Notion'
+import { blockToObject } from '@/lib/blockToObject'
 
 const pageId: string = process.env.NOTION_ABOUT_PAGE_ID || ''
 
@@ -14,6 +15,7 @@ type AboutType = {
 }
 
 export default function About(props: AboutType) {
+  const blogObject = blockToObject(props.blocks)
   console.log(props)
   return (
     <div className="">
@@ -29,7 +31,9 @@ export default function About(props: AboutType) {
         />
         <ArticleCard
           title={props.page.properties.title.title}
-          blocks={props.blocks}
+          // blocks={props.blocks}
+          contents={blogObject['blocks']}
+          toc={blogObject['toc']}
         />
       </div>
     </div>
