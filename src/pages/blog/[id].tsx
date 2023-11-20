@@ -6,6 +6,7 @@ import { databaseId } from '@/pages/blog/index'
 import { ArticleCard } from '@/components/templates/ArticleCard'
 import { Hero } from '@/components/organisms/Hero'
 import { Page, Block } from '@/types/Notion'
+import { blockToObject } from '@/lib/blockToObject'
 
 interface BloggPageProps {
   page: Page
@@ -20,6 +21,8 @@ type Params = {
 export default function BlogPage(props: BloggPageProps) {
   // console.log('page', props.page)
   // console.log('blocks', props.blocks)
+  const blogObject = blockToObject(props.blocks)
+  console.log('blogObject', blogObject)
   if (!props.page || !props.blocks) {
     return <div />
   }
@@ -28,7 +31,9 @@ export default function BlogPage(props: BloggPageProps) {
       <Hero title="Blog" />
       <ArticleCard
         title={props.page.properties.title.title}
-        blocks={props.blocks}
+        // blocks={props.blocks}
+        contents={blogObject['blocks']}
+        toc={blogObject['toc']}
       >
         <div className="flex text-sm">
           <div className="mr-2">
