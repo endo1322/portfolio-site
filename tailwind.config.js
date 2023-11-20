@@ -15,7 +15,11 @@ module.exports = {
     backgroundImage: {
       'back-image': "url('/background.jpg')"
     },
-    extend: {}
+    extend: {
+      fontFamily: {
+        righteous: ['Righteous']
+      }
+    }
   },
   plugins: []
 }
