@@ -16,7 +16,7 @@ export const Toc = (props: TocType) => {
         <div>
           <ol>
             {props.captions.map((item, index) => (
-              <li>
+              <li key={index}>
                 <AnchorLink offset="100" href={`#${item.id}`}>
                   {item.text?.plainText}
                 </AnchorLink>
