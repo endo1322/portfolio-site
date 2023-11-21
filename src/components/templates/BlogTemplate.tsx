@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { RichText } from '@/types/Notion'
 import { Toc } from '@/components/organisms/Toc'
 import { BlockObject, TocObject } from '@/types/NotionToObject'
 import { ArticleCard } from '../organisms/ArticleCard'
+import { useMediaQuery } from 'react-responsive'
 
 interface BlogTemplateProps {
   title: Array<RichText>
@@ -13,7 +14,10 @@ interface BlogTemplateProps {
 }
 
 export const BlogTemplate = (props: BlogTemplateProps) => {
-  // const isDesktop: boolean = useMediaQuery({ query: '(min-width: 768px)' })
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   return (
     <div>
@@ -24,9 +28,27 @@ export const BlogTemplate = (props: BlogTemplateProps) => {
           children={props.children}
           contents={props.contents}
         />
-        {/* {isDesktop ? <Toc className="h-fit" captions={props.toc} /> : <></>} */}
-        <Toc className="h-fit" captions={props.toc} />
+        {mounted && (
+          <TocDynamic
+            className="sticky top-28 shrink-0 h-fit w-fit"
+            toc={props.toc}
+          />
+        )}
       </div>
     </div>
+  )
+}
+
+type TocDynamicProps = {
+  className: string
+  toc: Array<TocObject>
+}
+
+const TocDynamic = (props: TocDynamicProps) => {
+  const isDesktop: boolean = useMediaQuery({ query: '(min-width: 768px)' })
+  return isDesktop ? (
+    <Toc className={`${props.className}`} captions={props.toc} />
+  ) : (
+    <></>
   )
 }
