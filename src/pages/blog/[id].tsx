@@ -3,10 +3,10 @@ import { ParsedUrlQuery } from 'node:querystring'
 import Link from 'next/link'
 import { getBlocks, getDatabase, getPage } from '@/lib/notion'
 import { databaseId } from '@/pages/blog/index'
-import { ArticleCard } from '@/components/templates/ArticleCard'
 import { Hero } from '@/components/organisms/Hero'
 import { Page, Block } from '@/types/Notion'
 import { blockToObject } from '@/lib/blockToObject'
+import { BlogTemplate } from '@/components/templates/BlogTemplate'
 
 interface BloggPageProps {
   page: Page
@@ -29,7 +29,7 @@ export default function BlogPage(props: BloggPageProps) {
   return (
     <div className="container">
       <Hero title="Blog" />
-      <ArticleCard
+      <BlogTemplate
         title={props.page.properties.title.title}
         // blocks={props.blocks}
         contents={blogObject['blocks']}
@@ -49,7 +49,7 @@ export default function BlogPage(props: BloggPageProps) {
             </time>
           </div>
         </div>
-      </ArticleCard>
+      </BlogTemplate>
       <Link href="/blog">
         <div className="flex justify-center my-2 text-lg">← Go home</div>
       </Link>

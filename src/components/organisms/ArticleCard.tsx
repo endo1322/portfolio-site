@@ -1,21 +1,17 @@
-import React, { Children, Fragment, ElementType } from 'react'
-import Link from 'next/link'
+import React, { Fragment } from 'react'
 import { BloglinkCard } from '../molecules/BloglinkCard'
-import { Block, RichText } from '@/types/Notion'
+import { RichText } from '@/types/Notion'
 import { Frame } from '@/components/atoms/Frame'
-import { Toc } from '@/components/organisms/Toc'
 import { CustomTagText } from '../atoms/CustomTagText'
 import { useMediaQuery } from 'react-responsive'
-import { Controller } from 'react-hook-form'
-import { text } from 'node:stream/consumers'
-import { BlockObject, TocObject } from '@/types/NotionToObject'
+import { BlockObject } from '@/types/NotionToObject'
 
 interface ArticleCardProps {
+  className: string
   title: Array<RichText>
   // blocks: Array<Block>
   children?: JSX.Element
   contents: Array<BlockObject>
-  toc: Array<TocObject>
 }
 
 // export const Text = ({
@@ -287,43 +283,38 @@ interface ArticleCardProps {
 // }
 
 export const ArticleCard = (props: ArticleCardProps) => {
-  const isDesktop: boolean = useMediaQuery({ query: '(min-width: 768px)' })
+  // const isDesktop: boolean = useMediaQuery({ query: '(min-width: 768px)' })
 
   return (
-    <div>
-      <div className="flex flex-row">
-        <Frame className="max-w-3xl m-auto mb-12">
-          <article className="py-8 px-6">
-            {props.children}
-            <CustomTagText
-              customTag={'h1'}
-              text={props.title[0].plain_text}
-              textClassName={'flex justify-center mt-3 pb-3 text-4xl font-bold'}
-            />
-            <section>
-              {props.contents.map((content) => (
-                <Fragment key={content.id}>
-                  {content.textType == 'mention' ? (
-                    <BloglinkCard
-                      url={content.text?.url}
-                      title={content.text?.plainText}
-                    />
-                  ) : (
-                    <CustomTagText
-                      customTag={content.tag}
-                      annotations={content.text?.annotations}
-                      text={content.text?.plainText}
-                      textClassName={content.textClassName}
-                      id={content.id}
-                    />
-                  )}
-                </Fragment>
-              ))}
-            </section>
-          </article>
-        </Frame>
-        {isDesktop ? <Toc className="h-fit" captions={props.toc} /> : <></>}
-      </div>
-    </div>
+    <Frame className={`${props.className}`}>
+      <article className="py-8 px-6">
+        {props.children}
+        <CustomTagText
+          customTag={'h1'}
+          text={props.title[0].plain_text}
+          textClassName={'flex justify-center mt-3 pb-3 text-4xl font-bold'}
+        />
+        <section>
+          {props.contents.map((content) => (
+            <Fragment key={content.id}>
+              {content.textType == 'mention' ? (
+                <BloglinkCard
+                  url={content.text?.url}
+                  title={content.text?.plainText}
+                />
+              ) : (
+                <CustomTagText
+                  customTag={content.tag}
+                  annotations={content.text?.annotations}
+                  text={content.text?.plainText}
+                  textClassName={content.textClassName}
+                  id={content.id}
+                />
+              )}
+            </Fragment>
+          ))}
+        </section>
+      </article>
+    </Frame>
   )
 }
