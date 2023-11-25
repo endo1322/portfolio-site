@@ -21,7 +21,7 @@ export const BlogTemplate = (props: BlogTemplateProps) => {
 
   return (
     <div>
-      <div className="flex flex-row">
+      <div className="flex flex-row gap-10 xl:gap-0">
         <ArticleCard
           className="max-w-3xl m-auto mb-12"
           title={props.title}
@@ -30,7 +30,7 @@ export const BlogTemplate = (props: BlogTemplateProps) => {
         />
         {mounted && (
           <TocDynamic
-            className="sticky top-28 shrink-0 h-fit w-fit"
+            className="sticky top-28 shrink-0 h-fit w-fit xl:mr-20 2xl:mr-40"
             toc={props.toc}
           />
         )}
@@ -45,7 +45,7 @@ type TocDynamicProps = {
 }
 
 const TocDynamic = (props: TocDynamicProps) => {
-  const isDesktop: boolean = useMediaQuery({ query: '(min-width: 768px)' })
+  const isDesktop: boolean = useMediaQuery({ query: '(min-width: 1024px)' })
   return isDesktop ? (
     <Toc className={`${props.className}`} captions={props.toc} />
   ) : (
