@@ -3,7 +3,6 @@ import { BloglinkCard } from '../molecules/BloglinkCard'
 import { RichText } from '@/types/Notion'
 import { Frame } from '@/components/atoms/Frame'
 import { CustomTagText } from '../atoms/CustomTagText'
-import { useMediaQuery } from 'react-responsive'
 import { BlockObject } from '@/types/NotionToObject'
 
 interface ArticleCardProps {

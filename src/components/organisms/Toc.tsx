@@ -11,17 +11,21 @@ type TocType = {
 export const Toc = (props: TocType) => {
   return (
     <Frame className={`${props.className}`}>
-      <div className="py-8 px-6">
+      <div className="p-6">
         <div className="text-xl font-bold">目次</div>
         <div>
           <ol>
-            {props.captions.map((item, index) => (
-              <li key={index}>
-                <AnchorLink offset="100" href={`#${item.id}`}>
-                  {item.text?.plainText}
-                </AnchorLink>
-              </li>
-            ))}
+            {props.captions.map((item, index) => {
+              const className =
+                item.type === 'heading_1' ? 'font-bold mt-1' : 'ml-2'
+              return (
+                <li className={className} key={index}>
+                  <AnchorLink offset="100" href={`#${item.id}`}>
+                    {item.text?.plainText}
+                  </AnchorLink>
+                </li>
+              )
+            })}
           </ol>
         </div>
       </div>
