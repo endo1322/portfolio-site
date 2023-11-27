@@ -36,9 +36,14 @@ export type SubmitItemType = {
   onSubmit: (data: any) => void
 }
 
-export type ContactType = {
+export type FormType = {
   name: string
   email: string
   select: string
   content: string
+}
+
+export type ContactCardType = {
+  formItems: FormItemType
+  submitItem: SubmitItemType
 }
