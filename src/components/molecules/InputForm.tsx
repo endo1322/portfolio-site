@@ -6,7 +6,7 @@ type InputFormProps = {
   name: string
   type: string
   placeholder: string
-  required: string | false
+  required: string | boolean
 }
 
 export const InputForm = (props: InputFormProps) => {
@@ -17,7 +17,7 @@ export const InputForm = (props: InputFormProps) => {
   const inputName: string = props.name
   const inputType: string = props.type
   const inputPlaceholder: string = props.placeholder
-  const inputRequired: string | false = props.required
+  const inputRequired: string | boolean = props.required
   return (
     <div className="flex mb-8">
       <label
