@@ -9,7 +9,7 @@ type WorkTemplatePropsType = {
 
 export const WorkTemplate = (props: WorkTemplatePropsType) => {
   return (
-    <div className={props.className}>
+    <div className={`${props.className}`}>
       <Hero title={props.hero.title} />
     </div>
   )

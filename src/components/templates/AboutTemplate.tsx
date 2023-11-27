@@ -12,7 +12,7 @@ interface AboutTemplateProps {
 
 export const AboutTemplate = (props: AboutTemplateProps) => {
   return (
-    <div className={props.className}>
+    <div className={`${props.className}`}>
       <Hero title={props.hero.title} text={props.hero.text} />
       <ArticleCard
         className="max-w-3xl m-auto mb-12"
