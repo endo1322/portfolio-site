@@ -3,9 +3,10 @@ import { ParsedUrlQuery } from 'node:querystring'
 import Link from 'next/link'
 import { getBlocks, getDatabase, getPage } from '@/lib/notion'
 import { databaseId } from '@/pages/blog/index'
-import { ArticleCard } from '@/components/templates/ArticleCard'
 import { Hero } from '@/components/organisms/Hero'
 import { Page, Block } from '@/types/Notion'
+import { blockToObject } from '@/lib/blockToObject'
+import { BlogTemplate } from '@/components/templates/BlogTemplate'
 
 interface BloggPageProps {
   page: Page
@@ -20,31 +21,22 @@ type Params = {
 export default function BlogPage(props: BloggPageProps) {
   // console.log('page', props.page)
   // console.log('blocks', props.blocks)
+  const blogObject = blockToObject(props.blocks)
+  console.log('blogObject', blogObject)
   if (!props.page || !props.blocks) {
     return <div />
   }
   return (
     <div className="container">
       <Hero title="Blog" />
-      <ArticleCard
+      <BlogTemplate
         title={props.page.properties.title.title}
-        blocks={props.blocks}
-      >
-        <div className="flex text-sm">
-          <div className="mr-2">
-            投稿日
-            <time className="ml-1" dateTime={props.page['created_time']}>
-              {props.page['created_time'].match('\\d{4}-\\d{2}-\\d{2}')}
-            </time>
-          </div>
-          <div>
-            更新日
-            <time className="ml-1" dateTime={props.page['last_edited_time']}>
-              {props.page['last_edited_time'].match('\\d{4}-\\d{2}-\\d{2}')}
-            </time>
-          </div>
-        </div>
-      </ArticleCard>
+        // blocks={props.blocks}
+        createDate={props.page['created_time']}
+        updateDate={props.page['last_edited_time']}
+        contents={blogObject['blocks']}
+        toc={blogObject['toc']}
+      />
       <Link href="/blog">
         <div className="flex justify-center my-2 text-lg">← Go home</div>
       </Link>
