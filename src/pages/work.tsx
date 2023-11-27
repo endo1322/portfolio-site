@@ -1,11 +1,9 @@
-import Link from 'next/link'
 import React from 'react'
-import { Hero } from '@/components/organisms/Hero'
+import { WorkTemplate } from '@/components/templates/WorkTemplate'
 
 export default function work() {
-  return (
-    <div className="container">
-      <Hero title="Work" />
-    </div>
-  )
+  const hero = {
+    title: 'Work'
+  }
+  return <WorkTemplate className={'container'} hero={hero} />
 }

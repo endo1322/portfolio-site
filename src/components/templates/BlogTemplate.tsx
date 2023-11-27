@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import { RichText } from '@/types/Notion'
 import { Toc } from '@/components/organisms/Toc'
-import { BlockObject, TocObject } from '@/types/NotionToObject'
+import { TocObject } from '@/types/NotionToObject'
 import { ArticleCard } from '../organisms/ArticleCard'
 import { useMediaQuery } from 'react-responsive'
+import { HeroType } from '@/types/Common'
+import { BlogArticleCardType, LinkType } from '@/types/Blog'
+import { Hero } from '../organisms/Hero'
+import Link from 'next/link'
 
 interface BlogTemplateProps {
-  title: Array<RichText>
-  // blocks: Array<Block>
-  createDate?: string
-  updateDate?: string
-  contents: Array<BlockObject>
-  toc: Array<TocObject>
+  className: string
+  hero: HeroType
+  blogArticleCard: BlogArticleCardType
+  link: LinkType
 }
 
 export const BlogTemplate = (props: BlogTemplateProps) => {
@@ -21,22 +22,25 @@ export const BlogTemplate = (props: BlogTemplateProps) => {
   }, [])
 
   return (
-    <div>
+    <div className={`${props.className}`}>
+      <Hero title={props.hero.title} />
       <div className="flex flex-row m-auto max-w-7xl gap-10 mb-12">
         <ArticleCard
           className="max-w-3xl m-auto"
-          title={props.title}
-          createDate={props.createDate}
-          updateDate={props.updateDate}
-          contents={props.contents}
+          title={props.blogArticleCard.title}
+          date={props.blogArticleCard.date}
+          contents={props.blogArticleCard.contents}
         />
         {mounted && (
           <TocDynamic
             className="sticky top-28 shrink-0 h-fit w-72"
-            toc={props.toc}
+            toc={props.blogArticleCard.toc}
           />
         )}
       </div>
+      <Link href={props.link.href}>
+        <div className="flex justify-center my-2 text-lg">{props.link.tag}</div>
+      </Link>
     </div>
   )
 }

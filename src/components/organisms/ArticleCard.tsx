@@ -8,9 +8,10 @@ import { BlockObject } from '@/types/NotionToObject'
 interface ArticleCardProps {
   className: string
   title: Array<RichText>
-  createDate?: string
-  updateDate?: string
-  // blocks: Array<Block>
+  date?: {
+    createDate: string
+    updateDate: string
+  }
   contents: Array<BlockObject>
 }
 
@@ -283,23 +284,21 @@ interface ArticleCardProps {
 // }
 
 export const ArticleCard = (props: ArticleCardProps) => {
-  // const isDesktop: boolean = useMediaQuery({ query: '(min-width: 768px)' })
-
   return (
     <Frame className={`${props.className}`}>
       <article className="py-8 px-6">
-        {props.createDate && props.updateDate ? (
+        {props.date ? (
           <div className="flex text-sm">
             <div className="mr-2">
               投稿日
-              <time className="ml-1" dateTime={props.createDate}>
-                {props.createDate.match('\\d{4}-\\d{2}-\\d{2}')}
+              <time className="ml-1" dateTime={props.date.createDate}>
+                {props.date.createDate.match('\\d{4}-\\d{2}-\\d{2}')}
               </time>
             </div>
             <div>
               更新日
-              <time className="ml-1" dateTime={props.updateDate}>
-                {props.updateDate.match('\\d{4}-\\d{2}-\\d{2}')}
+              <time className="ml-1" dateTime={props.date.updateDate}>
+                {props.date.updateDate.match('\\d{4}-\\d{2}-\\d{2}')}
               </time>
             </div>
           </div>

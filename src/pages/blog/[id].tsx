@@ -1,12 +1,11 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
-import { ParsedUrlQuery } from 'node:querystring'
-import Link from 'next/link'
 import { getBlocks, getDatabase, getPage } from '@/lib/notion'
 import { databaseId } from '@/pages/blog/index'
-import { Hero } from '@/components/organisms/Hero'
 import { Page, Block } from '@/types/Notion'
 import { blockToObject } from '@/lib/blockToObject'
 import { BlogTemplate } from '@/components/templates/BlogTemplate'
+import { HeroType } from '@/types/Common'
+import { BlogArticleCardType } from '@/types/Blog'
 
 interface BloggPageProps {
   page: Page
@@ -23,26 +22,37 @@ export default function BlogPage(props: BloggPageProps) {
   // console.log('blocks', props.blocks)
   const blogObject = blockToObject(props.blocks)
   console.log('blogObject', blogObject)
+
+  const hero: HeroType = {
+    title: 'Blog'
+  }
+
+  const blogArticleCard: BlogArticleCardType = {
+    title: props.page.properties.title.title,
+    date: {
+      createDate: props.page['created_time'],
+      updateDate: props.page['last_edited_time']
+    },
+    contents: blogObject['blocks'],
+    toc: blogObject['toc']
+  }
+
+  const link = {
+    href: '/blog',
+    tag: '← Go home'
+  }
+
   if (!props.page || !props.blocks) {
     return <div />
   }
   return (
-    <div className="container">
-      <Hero title="Blog" />
-      <BlogTemplate
-        title={props.page.properties.title.title}
-        // blocks={props.blocks}
-        createDate={props.page['created_time']}
-        updateDate={props.page['last_edited_time']}
-        contents={blogObject['blocks']}
-        toc={blogObject['toc']}
-      />
-      <Link href="/blog">
-        <div className="flex justify-center my-2 text-lg">← Go home</div>
-      </Link>
-    </div>
+    <BlogTemplate
+      className={'container'}
+      hero={hero}
+      blogArticleCard={blogArticleCard}
+      link={link}
+    />
   )
-  //   return <div className="container flex justify-center text-5xl">a</div>
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {

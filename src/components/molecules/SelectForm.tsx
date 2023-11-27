@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFormContext } from 'react-hook-form'
-import { SelectItemType } from '@/components/templates/ContactForm'
+import { SelectItemType } from '@/types/Contact'
 import { ErrorMessage } from '@hookform/error-message'
 
 type SelectFormProps = {

@@ -1,20 +1,23 @@
 import React from 'react'
-import { RichText } from '@/types/Notion'
-import { BlockObject } from '@/types/NotionToObject'
+import { Hero } from '@/components/organisms/Hero'
 import { ArticleCard } from '../organisms/ArticleCard'
+import { HeroType } from '@/types/Common'
+import { AboutArticleCardType } from '@/types/About'
 
-interface BlogTemplateProps {
-  title: Array<RichText>
-  contents: Array<BlockObject>
+interface AboutTemplateProps {
+  className: string
+  hero: HeroType
+  aboutArticleCard: AboutArticleCardType
 }
 
-export const AboutTemplate = (props: BlogTemplateProps) => {
+export const AboutTemplate = (props: AboutTemplateProps) => {
   return (
-    <div>
+    <div className={`${props.className}`}>
+      <Hero title={props.hero.title} text={props.hero.text} />
       <ArticleCard
         className="max-w-3xl m-auto mb-12"
-        title={props.title}
-        contents={props.contents}
+        title={props.aboutArticleCard.title}
+        contents={props.aboutArticleCard.contents}
       />
     </div>
   )
