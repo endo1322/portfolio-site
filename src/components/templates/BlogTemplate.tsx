@@ -21,7 +21,7 @@ export const BlogTemplate = (props: BlogTemplateProps) => {
 
   return (
     <div>
-      <div className="flex flex-row gap-10 xl:gap-0">
+      <div className="flex flex-row m-auto max-w-7xl gap-10">
         <ArticleCard
           className="max-w-3xl m-auto mb-12"
           title={props.title}
@@ -30,7 +30,7 @@ export const BlogTemplate = (props: BlogTemplateProps) => {
         />
         {mounted && (
           <TocDynamic
-            className="sticky top-28 shrink-0 h-fit w-fit xl:mr-20 2xl:mr-40"
+            className="sticky top-28 shrink-0 h-fit w-72"
             toc={props.toc}
           />
         )}
