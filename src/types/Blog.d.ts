@@ -1,5 +1,6 @@
-import { RichText } from '@/types/Notion'
-import { BlockObject, TocObject } from './NotionToObject'
+import { RichText, Page } from '@/types/Notion'
+import { BlockObject, TocObject } from '@/types/NotionToObject'
+import { ReactPaginateProps } from 'react-paginate'
 
 export type BlogArticleCardType = {
   title: Array<RichText>
@@ -15,3 +16,7 @@ export type LinkType = {
   href: string
   tag: string
 }
+
+export type BlogListType = Array<Page>
+
+export type ReactPagenateType = ReactPaginateProps
