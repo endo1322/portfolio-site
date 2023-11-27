@@ -8,8 +8,9 @@ import { BlockObject } from '@/types/NotionToObject'
 interface ArticleCardProps {
   className: string
   title: Array<RichText>
+  createDate?: string
+  updateDate?: string
   // blocks: Array<Block>
-  children?: JSX.Element
   contents: Array<BlockObject>
 }
 
@@ -287,7 +288,24 @@ export const ArticleCard = (props: ArticleCardProps) => {
   return (
     <Frame className={`${props.className}`}>
       <article className="py-8 px-6">
-        {props.children}
+        {props.createDate && props.updateDate ? (
+          <div className="flex text-sm">
+            <div className="mr-2">
+              投稿日
+              <time className="ml-1" dateTime={props.createDate}>
+                {props.createDate.match('\\d{4}-\\d{2}-\\d{2}')}
+              </time>
+            </div>
+            <div>
+              更新日
+              <time className="ml-1" dateTime={props.updateDate}>
+                {props.updateDate.match('\\d{4}-\\d{2}-\\d{2}')}
+              </time>
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
         <CustomTagText
           customTag={'h1'}
           text={props.title[0].plain_text}

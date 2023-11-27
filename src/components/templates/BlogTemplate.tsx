@@ -8,7 +8,8 @@ import { useMediaQuery } from 'react-responsive'
 interface BlogTemplateProps {
   title: Array<RichText>
   // blocks: Array<Block>
-  children?: JSX.Element
+  createDate?: string
+  updateDate?: string
   contents: Array<BlockObject>
   toc: Array<TocObject>
 }
@@ -21,11 +22,12 @@ export const BlogTemplate = (props: BlogTemplateProps) => {
 
   return (
     <div>
-      <div className="flex flex-row m-auto max-w-7xl gap-10">
+      <div className="flex flex-row m-auto max-w-7xl gap-10 mb-12">
         <ArticleCard
-          className="max-w-3xl m-auto mb-12"
+          className="max-w-3xl m-auto"
           title={props.title}
-          children={props.children}
+          createDate={props.createDate}
+          updateDate={props.updateDate}
           contents={props.contents}
         />
         {mounted && (

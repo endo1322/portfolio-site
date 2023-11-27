@@ -32,24 +32,11 @@ export default function BlogPage(props: BloggPageProps) {
       <BlogTemplate
         title={props.page.properties.title.title}
         // blocks={props.blocks}
+        createDate={props.page['created_time']}
+        updateDate={props.page['last_edited_time']}
         contents={blogObject['blocks']}
         toc={blogObject['toc']}
-      >
-        <div className="flex text-sm">
-          <div className="mr-2">
-            投稿日
-            <time className="ml-1" dateTime={props.page['created_time']}>
-              {props.page['created_time'].match('\\d{4}-\\d{2}-\\d{2}')}
-            </time>
-          </div>
-          <div>
-            更新日
-            <time className="ml-1" dateTime={props.page['last_edited_time']}>
-              {props.page['last_edited_time'].match('\\d{4}-\\d{2}-\\d{2}')}
-            </time>
-          </div>
-        </div>
-      </BlogTemplate>
+      />
       <Link href="/blog">
         <div className="flex justify-center my-2 text-lg">← Go home</div>
       </Link>
