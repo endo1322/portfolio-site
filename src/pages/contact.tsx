@@ -1,6 +1,6 @@
 import React from 'react'
 import { ContactTemplate } from '@/components/templates/ContactTemplate'
-import { SubmitHandler } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import {
   SelectItemType,
   FormItemType,
@@ -22,6 +22,17 @@ export default function Contact() {
     text: heroText
   }
 
+  const useFormMethods = useForm<FormType>({
+    defaultValues: {
+      name: '',
+      email: '',
+      select: '',
+      content: ''
+    }
+  })
+  console.log(useFormMethods)
+  const { reset } = useFormMethods
+
   const onSubmit: SubmitHandler<FormType> = async (data) => {
     console.log(data)
     // 妥協コード
@@ -40,6 +51,7 @@ export default function Contact() {
     })
     const result = await response.json()
     console.log(result)
+    reset()
   }
 
   const selectItems: SelectItemType[] = [
@@ -84,7 +96,8 @@ export default function Contact() {
 
   const contactCard: ContactCardType = {
     formItems: formItems,
-    submitItem: submitItem
+    submitItem: submitItem,
+    useFormMethods: useFormMethods
   }
 
   return (

@@ -17,6 +17,7 @@ export const ContactTemplate = (props: ContactTemplatePropsType) => {
         className={'max-w-3xl m-auto'}
         formItems={props.contactCard.formItems}
         submitItem={props.contactCard.submitItem}
+        useFormMethods={props.contactCard.useFormMethods}
       />
     </div>
   )

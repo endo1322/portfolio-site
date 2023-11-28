@@ -1,37 +1,31 @@
-import { useForm, FormProvider } from 'react-hook-form'
+import { FormProvider } from 'react-hook-form'
 import { InputForm } from '@/components/molecules/InputForm'
 import { TextareaForm } from '@/components/molecules/TextareaForm'
 import { Button } from '@/components/atoms/Button'
 import { SelectForm } from '@/components/molecules/SelectForm'
 import { Frame } from '@/components/atoms/Frame'
-import { FormItemType, SubmitItemType, FormType } from '@/types/Contact'
+import {
+  FormItemType,
+  SubmitItemType,
+  useFormMethodsType
+} from '@/types/Contact'
 
 type ContactCardPropsType = {
   className: string
   formItems: FormItemType
   submitItem: SubmitItemType
+  useFormMethods: useFormMethodsType
 }
 
 export const ContactCard = (props: ContactCardPropsType) => {
-  const useFormMethods = useForm<FormType>({
-    defaultValues: {
-      name: '',
-      email: '',
-      select: '',
-      content: ''
-    }
-  })
-  const { handleSubmit, reset } = useFormMethods
+  const { handleSubmit } = props.useFormMethods
 
   return (
     <Frame className={`${props.className}`}>
-      <FormProvider {...useFormMethods}>
+      <FormProvider {...props.useFormMethods}>
         <form
           className="flex flex-col p-10"
-          onSubmit={() => {
-            handleSubmit(props.submitItem.onSubmit)
-            reset()
-          }}
+          onSubmit={handleSubmit(props.submitItem.onSubmit)}
         >
           <InputForm
             name={props.formItems.name.name}
