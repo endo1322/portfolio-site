@@ -1,10 +1,11 @@
-import Link from 'next/link'
 import React from 'react'
-import { GetStaticProps, GetStaticPaths } from 'next'
-import { Hero } from '@/components/organisms/Hero'
-import { ArticleCard } from '@/components/templates/ArticleCard'
+import { GetStaticProps } from 'next'
 import { getBlocks, getPage } from '@/lib/notion'
 import { Block, Page } from '@/types/Notion'
+import { blockToObject } from '@/lib/blockToObject'
+import { AboutTemplate } from '@/components/templates/AboutTemplate'
+import { HeroType } from '@/types/Common'
+import { AboutArticleCardType } from '@/types/About'
 
 const pageId: string = process.env.NOTION_ABOUT_PAGE_ID || ''
 
@@ -14,25 +15,31 @@ type AboutType = {
 }
 
 export default function About(props: AboutType) {
+  const heroText: Array<string> = [
+    '　当ポートフォリオサイトをご覧いただき、誠にありがとうございます。',
+    '　ここでは、皆様からサイト運営者である私に対する意見や質問等を受け付けております。何かございましたら、お気軽に下記フォームよりお問い合わせくださいませ。',
+    '　できる限り、私も皆様の声にお応えしたいと考えておりますので、積極的に返信させていただきます。ただし、返信を希望されない場合は、メールアドレスの欄は空白でも構いません。'
+  ]
+
+  const hero: HeroType = {
+    title: 'About',
+    text: heroText
+  }
+
+  const blogObject = blockToObject(props.blocks)
   console.log(props)
+
+  const aboutArticleCard: AboutArticleCardType = {
+    title: props.page.properties.title.title,
+    contents: blogObject['blocks']
+  }
+
   return (
-    <div className="">
-      <div className="container">
-        <Hero
-          title="About"
-          text={[
-            '　当サイトは、Web業界を目指す一般理系大学生によるポートフォリオサイトです。',
-            '　特にエンジニアの方やエンジニアを目指している方に向けて制作しており、Blogページでは情報技術に関する情報も発信しています。ぜひお立ち寄りください。',
-            '　今後もブログや成果物、サイト自体など随時更新していく予定ですので、お楽しみにお待ちください。',
-            '　以下に簡単な自己紹介をさせていただきます。'
-          ]}
-        />
-        <ArticleCard
-          title={props.page.properties.title.title}
-          blocks={props.blocks}
-        />
-      </div>
-    </div>
+    <AboutTemplate
+      className={'container'}
+      hero={hero}
+      aboutArticleCard={aboutArticleCard}
+    />
   )
 }
 

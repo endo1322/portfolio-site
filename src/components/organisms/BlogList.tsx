@@ -1,19 +1,18 @@
 import React from 'react'
-import type { QueryDatabaseResponse } from '@notionhq/client/build/src/api-endpoints.d'
 import { BlogCard } from '../molecules/BlogCard'
-import { Page } from '@/types/Notion'
+import { BlogListType } from '@/types/Blog'
 
-interface BlogListType {
-  blog: Array<Page>
+interface BlogListPropsType {
+  blogList: BlogListType
 }
 
-export const BlogList = (props: BlogListType) => {
-  const blog = props.blog
-  console.log(blog)
+export const BlogList = (props: BlogListPropsType) => {
+  const blogList = props.blogList
+  console.log(blogList)
 
   return (
     <div className="">
-      {blog.map((value, index) => (
+      {blogList.map((value, index) => (
         <BlogCard
           key={index}
           id={value['id']}

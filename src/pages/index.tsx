@@ -1,12 +1,9 @@
-import { Hero } from '@/components/organisms/Hero'
+import { HomeTemplate } from '@/components/templates/HomeTemplate'
 
 export default function Home() {
-  return (
-    <div className="container">
-      <Hero title="Home"
-      text={[
-        '　Welcome!!'
-      ]}/>
-    </div>
-  )
+  const hero = {
+    title: 'Home',
+    text: ['　Welcome!!']
+  }
+  return <HomeTemplate className={'container'} hero={hero} />
 }

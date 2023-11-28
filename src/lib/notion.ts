@@ -1,6 +1,6 @@
 import React from 'react'
 import { Client } from '@notionhq/client'
-import { ContactType } from '@/components/templates/ContactForm'
+import { FormType } from '@/types/Contact'
 import { postPage } from '@/types/Notion'
 
 export const notion = new Client({
@@ -38,7 +38,7 @@ export const getBlocks = async (blockId: string) => {
 
 export const postContactPage = async (
   databaseId: string,
-  pageContents: ContactType
+  pageContents: FormType
 ) => {
   // let request: postPage = {
   //   parent: {

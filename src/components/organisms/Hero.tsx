@@ -8,7 +8,7 @@ export const Hero = (props: HeroType) => {
   return (
     <div className="flex flex-col max-w-5xl m-auto">
       <div className="my-9">
-        <div className="text-8xl">{props.title}</div>
+        <div className="text-8xl font-righteous">{props.title}</div>
       </div>
       {props.text != undefined ? (
         <div className="max-w-4xl mb-10 m-auto">
