@@ -7,7 +7,7 @@ interface BlogListPropsType {
 }
 
 export const BlogList = (props: BlogListPropsType) => {
-  const blogList = props.blogList
+  const blogList = props.blogList.currentBlog
   console.log(blogList)
 
   return (
@@ -19,6 +19,7 @@ export const BlogList = (props: BlogListPropsType) => {
           createdDate={value['created_time'].match('\\d{4}-\\d{2}-\\d{2}')}
           title={value['properties']['title']['title'][0]['plain_text']}
           multiSelect={value['properties']['tag']['multi_select']}
+          onTagFilter={props.blogList.onTagFilter}
         />
       ))}
     </div>

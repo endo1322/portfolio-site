@@ -13,20 +13,35 @@ interface BlogType {
 
 export default function Blog(props: BlogType) {
   console.log(props)
-  const blogList: Array<Page> = props.posts
+  const allBlog: Array<Page> = props.posts
+  const [filteredBlog, setFilteredList] = useState<Array<Page>>(allBlog)
   const itemsPerPage: number = 10
   const [itemsOffset, setItemsOffset] = useState<number>(0)
   const endOffset: number = itemsOffset + itemsPerPage
-  const currentBlogList: Array<Page> = blogList.slice(itemsOffset, endOffset)
-  const pageCount: number = Math.ceil(blogList.length / itemsPerPage)
+  const currentBlog: Array<Page> = filteredBlog.slice(itemsOffset, endOffset)
+  const pageCount: number = Math.ceil(filteredBlog.length / itemsPerPage)
 
   const onPageChange = (e: { selected: number }) => {
-    const newOffset = (e.selected * itemsPerPage) % blogList.length
+    const newOffset = (e.selected * itemsPerPage) % filteredBlog.length
     setItemsOffset(newOffset)
+  }
+
+  const onTagFilter = (e: { selectedTagId: string }) => {
+    const filtered = allBlog.filter((value) =>
+      value.properties.tag.multi_select.some(
+        (tag) => tag.id === e.selectedTagId
+      )
+    )
+    setFilteredList(filtered)
   }
 
   const hero: HeroType = {
     title: 'Blog'
+  }
+
+  const blogList = {
+    currentBlog: currentBlog,
+    onTagFilter: onTagFilter
   }
 
   const pagenate: ReactPagenateType = {
@@ -60,7 +75,7 @@ export default function Blog(props: BlogType) {
     <BlogIndexTemplate
       className={'container'}
       hero={hero}
-      blogList={currentBlogList}
+      blogList={blogList}
       pagenate={pagenate}
     />
   )

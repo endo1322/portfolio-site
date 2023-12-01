@@ -8,6 +8,7 @@ interface BlogCardProps {
   title: string
   createdDate: RegExpMatchArray | null
   multiSelect: Array<MultiSelect>
+  onTagFilter: (e: { selectedTagId: string }) => void
 }
 
 export const BlogCard = (props: BlogCardProps) => {
@@ -23,8 +24,10 @@ export const BlogCard = (props: BlogCardProps) => {
             <Tag
               key={index}
               className=""
+              id={value.id}
               name={value.name}
               color={value.color}
+              onTagFilter={props.onTagFilter}
             ></Tag>
           ))}
         </ul>

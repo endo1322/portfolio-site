@@ -1,10 +1,11 @@
-import Link from 'next/link'
 import React from 'react'
 
 type TagPropsType = {
+  id: string
   className: string
   name: string
   color: string
+  onTagFilter: (e: { selectedTagId: string }) => void
 }
 
 const bgColor: {
@@ -24,7 +25,11 @@ const bgColor: {
 
 export const Tag = (props: TagPropsType) => {
   return (
-    <Link href="/blog">
+    <button
+      onClick={() => {
+        props.onTagFilter({ selectedTagId: props.id })
+      }}
+    >
       <li
         className={`px-2 rounded-md text-white ${bgColor[props.color]} ${
           props.className
@@ -32,6 +37,6 @@ export const Tag = (props: TagPropsType) => {
       >
         {props.name}
       </li>
-    </Link>
+    </button>
   )
 }
