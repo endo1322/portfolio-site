@@ -19,7 +19,7 @@ export const BlogCard = (props: BlogCardProps) => {
       <div className="pl-2">{props.createdDate}</div>
       <div className="pl-4">
         <div className="text-3xl mb-1">{props.title}</div>
-        <ul className="flex flex-row gap-1 flex-wrap relative z-10">
+        <ul className="flex flex-row gap-1 flex-wrap">
           {props.multiSelect.map((value, index) => (
             <Tag
               key={index}

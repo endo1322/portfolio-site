@@ -28,6 +28,7 @@ export const BlogTemplate = (props: BlogTemplateProps) => {
         <ArticleCard
           className="max-w-3xl m-auto"
           title={props.blogArticleCard.title}
+          multiSelect={props.blogArticleCard.multiSelect}
           date={props.blogArticleCard.date}
           contents={props.blogArticleCard.contents}
         />

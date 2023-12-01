@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { getDatabase, notion } from '@/lib/notion'
 import { Page } from '@/types/Notion'
 import { ReactPagenateType } from '@/types/Blog'
@@ -15,6 +16,19 @@ export default function Blog(props: BlogType) {
   console.log(props)
   const allBlog: Array<Page> = props.posts
   const [filteredBlog, setFilteredList] = useState<Array<Page>>(allBlog)
+  const searchParams = useSearchParams()
+  const queryTagId = searchParams.get('tagId')
+
+  useEffect(() => {
+    if (queryTagId !== null) {
+      const filtered = allBlog.filter((value) =>
+        value.properties.tag.multi_select.some((tag) => tag.id === queryTagId)
+      )
+      console.log(filtered)
+      setFilteredList(filtered)
+    }
+  }, [queryTagId])
+
   const itemsPerPage: number = 10
   const [itemsOffset, setItemsOffset] = useState<number>(0)
   const endOffset: number = itemsOffset + itemsPerPage

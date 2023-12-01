@@ -1,9 +1,10 @@
-import { RichText, Page } from '@/types/Notion'
+import { RichText, Page, MultiSelect } from '@/types/Notion'
 import { BlockObject, TocObject } from '@/types/NotionToObject'
 import { ReactPaginateProps } from 'react-paginate'
 
 export type BlogArticleCardType = {
   title: Array<RichText>
+  multiSelect: Array<MultiSelect>
   date: {
     createDate: string
     updateDate: string
