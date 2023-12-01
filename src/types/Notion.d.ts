@@ -27,10 +27,16 @@ export type Page = {
     tag: {
       id: string
       type: string
-      //   multi_select: Array
+      multi_select: Array<MultiSelect>
     }
   }
   url: string
+}
+
+export type MultiSelect = {
+  color: string
+  id: string
+  name: string
 }
 
 export type RichText = {
