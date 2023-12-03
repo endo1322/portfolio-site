@@ -14,9 +14,9 @@ export const BlogList = (props: BlogListPropsType) => {
   return (
     <div className="">
       <ClearTagButton
-        // selectedTagId={props.blogList.selectedTagId}
-        onTagFilterClear={props.blogList.onTagFilterClear}
-      ></ClearTagButton>
+        selectedTag={props.blogList.selectedTag}
+        onClearFilteredTag={props.blogList.onClearFilteredTag}
+      />
       {blogList.map((value) => (
         <BlogCard
           key={value['id']}
@@ -24,7 +24,7 @@ export const BlogList = (props: BlogListPropsType) => {
           createdDate={value['created_time'].match('\\d{4}-\\d{2}-\\d{2}')}
           title={value['properties']['title']['title'][0]['plain_text']}
           multiSelect={value['properties']['tag']['multi_select']}
-          onTagFilter={props.blogList.onTagFilter}
+          onFilterTag={props.blogList.onFilterTag}
         />
       ))}
     </div>

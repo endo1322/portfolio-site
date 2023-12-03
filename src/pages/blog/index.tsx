@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { getDatabase, notion } from '@/lib/notion'
+import { getDatabase } from '@/lib/notion'
 import { Page } from '@/types/Notion'
 import { ReactPagenateType } from '@/types/Blog'
 import { HeroType } from '@/types/Common'
 import { BlogIndexTemplate } from '@/components/templates/BlogIndexTemplate'
+import { databaseToObject } from '@/lib/blockToObject'
+import { PageObject, TagObject } from '@/types/NotionToObject'
 
 export const databaseId: string = process.env.NOTION_TEST_BLOG_DATABASE_ID || ''
 
@@ -14,6 +16,11 @@ interface BlogType {
 
 export default function Blog(props: BlogType) {
   console.log(props)
+  const databaseObject: { pages: Array<PageObject>; tags: TagObject } =
+    databaseToObject(props.posts)
+  const pagesObject: Array<PageObject> = databaseObject.pages
+  const tagsObject: TagObject = databaseObject.tags
+
   const hero: HeroType = {
     title: 'Blog'
   }
@@ -25,19 +32,19 @@ export default function Blog(props: BlogType) {
   console.log(selectedTagId)
   // クエリでタグを指定
   const searchParams = useSearchParams()
-  const queryTagId = searchParams.get('tagId')
+  const queryTagId: string = searchParams.get('tagId') || ''
   useEffect(() => {
-    if (queryTagId !== null) {
+    if (queryTagId !== '') {
       setSelectedTagId(queryTagId)
     }
   }, [queryTagId])
 
   // ボタンでタグを選択
-  const onTagFilter = (e: { selectedTagId: string }) => {
+  const onFilterTag = (e: { selectedTagId: string }) => {
     setSelectedTagId(e.selectedTagId)
   }
 
-  const onTagFilterClear = () => {
+  const onClearFilteredTag = () => {
     setSelectedTagId('')
   }
 
@@ -64,14 +71,9 @@ export default function Blog(props: BlogType) {
 
   const blogList = {
     currentBlog: currentBlog,
-    // multiSelect: {
-    //   color:
-    //   id: selectedTagId
-    //   name:
-    // }
-    selectedTagId: selectedTagId,
-    onTagFilter: onTagFilter,
-    onTagFilterClear: onTagFilterClear
+    selectedTag: { [selectedTagId]: tagsObject[selectedTagId] },
+    onFilterTag: onFilterTag,
+    onClearFilteredTag: onClearFilteredTag
   }
 
   const pagenate: ReactPagenateType = {

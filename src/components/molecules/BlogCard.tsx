@@ -8,7 +8,7 @@ interface BlogCardProps {
   title: string
   createdDate: RegExpMatchArray | null
   multiSelect: Array<MultiSelect>
-  onTagFilter: (e: { selectedTagId: string }) => void
+  onFilterTag: (e: { selectedTagId: string }) => void
 }
 
 export const BlogCard = (props: BlogCardProps) => {
@@ -24,7 +24,7 @@ export const BlogCard = (props: BlogCardProps) => {
             <button
               key={`${props.id}${value.id}`}
               onClick={() => {
-                props.onTagFilter?.({ selectedTagId: value.id })
+                props.onFilterTag?.({ selectedTagId: value.id })
               }}
             >
               <Tag
@@ -32,13 +32,11 @@ export const BlogCard = (props: BlogCardProps) => {
                 id={value.id}
                 name={value.name}
                 color={value.color}
-                // onTagFilter={props.onTagFilter}
               ></Tag>
             </button>
           ))}
         </ul>
       </div>
-      {/* </Link> */}
     </div>
   )
 }

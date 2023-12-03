@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 type TagPropsType = {
+  children?: React.ReactNode
   id: string
   className: string
   name: string
@@ -30,6 +31,7 @@ export const Tag = (props: TagPropsType) => {
         bgColor[props.color]
       } ${props.className}`}
     >
+      {props.children && <>{props.children}</>}
       {props.name}
     </li>
   )
