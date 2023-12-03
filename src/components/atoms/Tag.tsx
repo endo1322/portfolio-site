@@ -6,7 +6,6 @@ type TagPropsType = {
   className: string
   name: string
   color: string
-  onTagFilter?: (e: { selectedTagId: string }) => void
 }
 
 const bgColor: {
@@ -25,33 +24,13 @@ const bgColor: {
 }
 
 export const Tag = (props: TagPropsType) => {
-  if (props.onTagFilter) {
-    return (
-      <button
-        onClick={() => {
-          props.onTagFilter?.({ selectedTagId: props.id })
-        }}
-      >
-        <li
-          className={`px-2 rounded-md text-white relative z-10 ${
-            bgColor[props.color]
-          } ${props.className}`}
-        >
-          {props.name}
-        </li>
-      </button>
-    )
-  } else {
-    return (
-      <Link href={`/blog?tagId=${props.id}`}>
-        <li
-          className={`px-2 rounded-md text-white relative z-10 ${
-            bgColor[props.color]
-          } ${props.className}`}
-        >
-          {props.name}
-        </li>
-      </Link>
-    )
-  }
+  return (
+    <li
+      className={`px-2 rounded-md text-white relative z-10 ${
+        bgColor[props.color]
+      } ${props.className}`}
+    >
+      {props.name}
+    </li>
+  )
 }

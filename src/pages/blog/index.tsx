@@ -14,48 +14,64 @@ interface BlogType {
 
 export default function Blog(props: BlogType) {
   console.log(props)
+  const hero: HeroType = {
+    title: 'Blog'
+  }
+
   const allBlog: Array<Page> = props.posts
   const [filteredBlog, setFilteredList] = useState<Array<Page>>(allBlog)
+
+  const [selectedTagId, setSelectedTagId] = useState<string>('')
+  console.log(selectedTagId)
+  // クエリでタグを指定
   const searchParams = useSearchParams()
   const queryTagId = searchParams.get('tagId')
-
   useEffect(() => {
     if (queryTagId !== null) {
-      const filtered = allBlog.filter((value) =>
-        value.properties.tag.multi_select.some((tag) => tag.id === queryTagId)
-      )
-      console.log(filtered)
-      setFilteredList(filtered)
+      setSelectedTagId(queryTagId)
     }
   }, [queryTagId])
+
+  // ボタンでタグを選択
+  const onTagFilter = (e: { selectedTagId: string }) => {
+    setSelectedTagId(e.selectedTagId)
+  }
+
+  const onTagFilterClear = () => {
+    setSelectedTagId('')
+  }
+
+  useEffect(() => {
+    if (selectedTagId == '') {
+      setFilteredList(allBlog)
+      return
+    }
+    const filtered = allBlog.filter((value) =>
+      value.properties.tag.multi_select.some((tag) => tag.id === selectedTagId)
+    )
+    setFilteredList(filtered)
+  }, [selectedTagId])
 
   const itemsPerPage: number = 10
   const [itemsOffset, setItemsOffset] = useState<number>(0)
   const endOffset: number = itemsOffset + itemsPerPage
   const currentBlog: Array<Page> = filteredBlog.slice(itemsOffset, endOffset)
   const pageCount: number = Math.ceil(filteredBlog.length / itemsPerPage)
-
   const onPageChange = (e: { selected: number }) => {
     const newOffset = (e.selected * itemsPerPage) % filteredBlog.length
     setItemsOffset(newOffset)
   }
 
-  const onTagFilter = (e: { selectedTagId: string }) => {
-    const filtered = allBlog.filter((value) =>
-      value.properties.tag.multi_select.some(
-        (tag) => tag.id === e.selectedTagId
-      )
-    )
-    setFilteredList(filtered)
-  }
-
-  const hero: HeroType = {
-    title: 'Blog'
-  }
-
   const blogList = {
     currentBlog: currentBlog,
-    onTagFilter: onTagFilter
+    // multiSelect: {
+    //   color:
+    //   id: selectedTagId
+    //   name:
+    // }
+    selectedTagId: selectedTagId,
+    onTagFilter: onTagFilter,
+    onTagFilterClear: onTagFilterClear
   }
 
   const pagenate: ReactPagenateType = {
@@ -98,6 +114,23 @@ export default function Blog(props: BlogType) {
 // ISR
 export const getStaticProps = async () => {
   const database = await getDatabase(databaseId)
+  // console.log(database)
+  // const multiSelect: Array<MultiSelect> = []
+
+  // database.forEach((value) => {
+  //   value.properties.tag.multi_select.forEach((item) => {
+  //     const newItem = {
+  //       id: item.id,
+  //       color: item.color,
+  //       name: item.name
+  //     }
+
+  //     // 重複をチェックしてから追加
+  //     if (!multiSelect.some((existingItem) => existingItem.id === newItem.id)) {
+  //       multiSelect.push(newItem)
+  //     }
+  //   })
+  // })
 
   const timestamp = new Date().toLocaleString()
   const message = `${timestamp}にgetStaticPropsが実行されました。`

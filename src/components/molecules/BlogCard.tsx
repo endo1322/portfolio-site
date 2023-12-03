@@ -20,15 +20,21 @@ export const BlogCard = (props: BlogCardProps) => {
       <div className="pl-4">
         <div className="text-3xl mb-1">{props.title}</div>
         <ul className="flex flex-row gap-1 flex-wrap">
-          {props.multiSelect.map((value, index) => (
-            <Tag
-              key={index}
-              className=""
-              id={value.id}
-              name={value.name}
-              color={value.color}
-              onTagFilter={props.onTagFilter}
-            ></Tag>
+          {props.multiSelect.map((value) => (
+            <button
+              key={`${props.id}${value.id}`}
+              onClick={() => {
+                props.onTagFilter?.({ selectedTagId: value.id })
+              }}
+            >
+              <Tag
+                className=""
+                id={value.id}
+                name={value.name}
+                color={value.color}
+                // onTagFilter={props.onTagFilter}
+              ></Tag>
+            </button>
           ))}
         </ul>
       </div>

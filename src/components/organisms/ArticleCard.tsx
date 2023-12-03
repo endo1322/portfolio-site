@@ -5,6 +5,7 @@ import { Frame } from '@/components/atoms/Frame'
 import { CustomTagText } from '../atoms/CustomTagText'
 import { BlockObject } from '@/types/NotionToObject'
 import { Tag } from '../atoms/Tag'
+import Link from 'next/link'
 
 interface ArticleCardProps {
   className: string
@@ -314,14 +315,15 @@ export const ArticleCard = (props: ArticleCardProps) => {
         />
         {props.multiSelect ? (
           <ul className="flex flex-row gap-1 flex-wrap relative mb-2">
-            {props.multiSelect.map((value, index) => (
-              <Tag
-                key={index}
-                className={''}
-                id={value.id}
-                name={value.name}
-                color={value.color}
-              ></Tag>
+            {props.multiSelect.map((value) => (
+              <Link key={value.id} href={`/blog?tagId=${value.id}`}>
+                <Tag
+                  className={''}
+                  id={value.id}
+                  name={value.name}
+                  color={value.color}
+                ></Tag>
+              </Link>
             ))}
           </ul>
         ) : (
