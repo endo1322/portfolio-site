@@ -7,7 +7,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 type ClearTagButtonPropsType = {
   id: string
   tagValue: TagValue
-  onClearFilteredTag: (e: { selectedTagId: string }) => void
+  onSetBool: (e: { selectedTagId: string }) => void
 }
 
 export const ClearTagButton = (props: ClearTagButtonPropsType) => {
@@ -15,7 +15,7 @@ export const ClearTagButton = (props: ClearTagButtonPropsType) => {
     <button
       className="flex flex-row"
       onClick={() => {
-        props.onClearFilteredTag({ selectedTagId: props.id })
+        props.onSetBool({ selectedTagId: props.id })
       }}
     >
       <Tag

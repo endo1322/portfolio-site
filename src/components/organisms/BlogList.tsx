@@ -19,9 +19,10 @@ export const BlogList = (props: BlogListPropsType) => {
         ) : (
           Object.keys(props.blogList.selectedTags).map((value) => (
             <ClearTagButton
+              key={value}
               id={value}
               tagValue={props.blogList.selectedTags[value]}
-              onClearFilteredTag={props.blogList.onClearFilteredTag}
+              onSetBool={props.blogList.onSetBool}
             />
           ))
         )}
@@ -33,7 +34,7 @@ export const BlogList = (props: BlogListPropsType) => {
           createdDate={value['created_time'].match('\\d{4}-\\d{2}-\\d{2}')}
           title={value['properties']['title']['title'][0]['plain_text']}
           multiSelect={value['properties']['tag']['multi_select']}
-          onFilterTag={props.blogList.onFilterTag}
+          onSetBool={props.blogList.onSetBool}
         />
       ))}
     </div>

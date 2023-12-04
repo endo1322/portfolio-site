@@ -8,7 +8,7 @@ interface BlogCardProps {
   title: string
   createdDate: RegExpMatchArray | null
   multiSelect: Array<MultiSelect>
-  onFilterTag: (e: { selectedTagId: string }) => void
+  onSetBool: (e: { selectedTagId: string }) => void
 }
 
 export const BlogCard = (props: BlogCardProps) => {
@@ -24,7 +24,7 @@ export const BlogCard = (props: BlogCardProps) => {
             <button
               key={`${props.id}${value.id}`}
               onClick={() => {
-                props.onFilterTag?.({ selectedTagId: value.id })
+                props.onSetBool({ selectedTagId: value.id })
               }}
             >
               <Tag

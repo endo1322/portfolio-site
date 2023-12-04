@@ -27,49 +27,69 @@ export default function Blog(props: BlogType) {
 
   const allBlog: Array<Page> = props.posts
   const [filteredBlog, setFilteredList] = useState<Array<Page>>(allBlog)
+  const [selectedCount, setSelectedCount] = useState<number>(0)
   const filterTagCount: Record<string, number> = {}
   allBlog.forEach((value) => {
     filterTagCount[value.id] = 0
   })
 
-  const [selectedTagIds, setSelectedTagId] = useState<Array<string>>([])
-  console.log(selectedTagIds)
+  const [boolSelectedTagIds, setSelectedTagId] = useState<
+    Record<string, boolean>
+  >(() => {
+    const initialBoolSelectedTagIds: Record<string, boolean> = {}
+    Object.keys(tagsObject).forEach((key) => {
+      initialBoolSelectedTagIds[key] = false
+    })
+    return initialBoolSelectedTagIds
+  })
   // クエリでタグを指定
   const searchParams = useSearchParams()
   const queryTagId: string = searchParams.get('tagId') || ''
   useEffect(() => {
     if (queryTagId !== '') {
-      setSelectedTagId([...selectedTagIds, queryTagId])
+      const updatedSelectedTagIds = { ...boolSelectedTagIds }
+      updatedSelectedTagIds[queryTagId] = !updatedSelectedTagIds[queryTagId]
+      setSelectedTagId(updatedSelectedTagIds)
+      setSelectedCount(selectedCount + 1)
     }
   }, [queryTagId])
 
   // ボタンでタグを選択
-  const onFilterTag = (e: { selectedTagId: string }) => {
-    setSelectedTagId([...selectedTagIds, e.selectedTagId])
-  }
-
-  const onClearFilteredTag = (e: { selectedTagId: string }) => {
-    setSelectedTagId(
-      selectedTagIds.filter((value) => value !== e.selectedTagId)
-    )
+  const onSetBool = (e: { selectedTagId: string }) => {
+    const updatedSelectedTagIds = { ...boolSelectedTagIds }
+    updatedSelectedTagIds[e.selectedTagId] =
+      !updatedSelectedTagIds[e.selectedTagId]
+    setSelectedTagId(updatedSelectedTagIds)
+    if (updatedSelectedTagIds[e.selectedTagId]) {
+      setSelectedCount(selectedCount + 1)
+    } else {
+      setSelectedCount(selectedCount - 1)
+    }
   }
 
   useEffect(() => {
-    if (selectedTagIds.length === 0) {
+    if (selectedCount === 0) {
       setFilteredList(allBlog)
       return
     }
-    selectedTagIds.forEach((value) => {
-      tagsObject[value].pageId.forEach((item) => {
-        filterTagCount[item] += 1
-      })
+    Object.keys(tagsObject).forEach((value) => {
+      if (boolSelectedTagIds[value]) {
+        tagsObject[value].pageId.forEach((item) => {
+          filterTagCount[item] += 1
+        })
+      }
     })
-    const filtered = allBlog.filter((value) => filterTagCount[value.id] > 0)
+    const filtered = allBlog.filter(
+      (value) => filterTagCount[value.id] === selectedCount
+    )
     setFilteredList(filtered)
-  }, [selectedTagIds])
+  }, [boolSelectedTagIds])
+
   const selectedTags: TagObject = {}
-  selectedTagIds.forEach((value) => {
-    selectedTags[value] = tagsObject[value]
+  Object.keys(tagsObject).forEach((value) => {
+    if (boolSelectedTagIds[value]) {
+      selectedTags[value] = tagsObject[value]
+    }
   })
 
   const itemsPerPage: number = 10
@@ -85,8 +105,7 @@ export default function Blog(props: BlogType) {
   const blogList = {
     currentBlog: currentBlog,
     selectedTags: selectedTags,
-    onFilterTag: onFilterTag,
-    onClearFilteredTag: onClearFilteredTag
+    onSetBool: onSetBool
   }
 
   const pagenate: ReactPagenateType = {

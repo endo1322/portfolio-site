@@ -26,8 +26,7 @@ export type LinkType = {
 export type BlogListType = {
   currentBlog: Array<Page>
   selectedTags: TagObject
-  onFilterTag: (e: { selectedTagId: string }) => void
-  onClearFilteredTag: (e: { selectedTagId: string }) => void
+  onSetBool: (e: { selectedTagId: string }) => void
 }
 
 export type ReactPagenateType = ReactPaginateProps
