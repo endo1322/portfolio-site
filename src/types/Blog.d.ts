@@ -1,9 +1,15 @@
-import { RichText, Page } from '@/types/Notion'
-import { BlockObject, TocObject } from '@/types/NotionToObject'
+import { RichText, Page, MultiSelect } from '@/types/Notion'
+import {
+  BlockObject,
+  TagObject,
+  TagProperty,
+  TocObject
+} from '@/types/NotionToObject'
 import { ReactPaginateProps } from 'react-paginate'
 
 export type BlogArticleCardType = {
   title: Array<RichText>
+  multiSelect: Array<MultiSelect>
   date: {
     createDate: string
     updateDate: string
@@ -17,6 +23,10 @@ export type LinkType = {
   tag: string
 }
 
-export type BlogListType = Array<Page>
+export type BlogListType = {
+  currentBlog: Array<Page>
+  selectedTags: TagObject
+  onSetBool: (e: { selectedTagId: string }) => void
+}
 
 export type ReactPagenateType = ReactPaginateProps

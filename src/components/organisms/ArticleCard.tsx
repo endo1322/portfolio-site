@@ -1,13 +1,16 @@
 import React, { Fragment } from 'react'
 import { BloglinkCard } from '../molecules/BloglinkCard'
-import { RichText } from '@/types/Notion'
+import { MultiSelect, RichText } from '@/types/Notion'
 import { Frame } from '@/components/atoms/Frame'
 import { CustomTagText } from '../atoms/CustomTagText'
 import { BlockObject } from '@/types/NotionToObject'
+import { Tag } from '../atoms/Tag'
+import Link from 'next/link'
 
 interface ArticleCardProps {
   className: string
   title: Array<RichText>
+  multiSelect?: Array<MultiSelect>
   date?: {
     createDate: string
     updateDate: string
@@ -310,6 +313,22 @@ export const ArticleCard = (props: ArticleCardProps) => {
           text={props.title[0].plain_text}
           textClassName={'flex justify-center mt-3 pb-3 text-4xl font-bold'}
         />
+        {props.multiSelect ? (
+          <ul className="flex flex-row gap-1 flex-wrap relative mb-2">
+            {props.multiSelect.map((value) => (
+              <Link key={value.id} href={`/blog?tagId=${value.id}`}>
+                <Tag
+                  className={''}
+                  id={value.id}
+                  name={value.name}
+                  color={value.color}
+                ></Tag>
+              </Link>
+            ))}
+          </ul>
+        ) : (
+          <></>
+        )}
         <section>
           {props.contents.map((content) => (
             <Fragment key={content.id}>

@@ -1,6 +1,12 @@
 import React, { ElementType } from 'react'
-import { Block, RichText } from '@/types/Notion'
-import { BlockObject, RichTextObject, TocObject } from '@/types/NotionToObject'
+import { Block, RichText, Page } from '@/types/Notion'
+import {
+  BlockObject,
+  PageObject,
+  RichTextObject,
+  TocObject,
+  TagObject
+} from '@/types/NotionToObject'
 
 const richTextToObject = (richTexts: Array<RichText>): RichTextObject => {
   const richText = richTexts[0]
@@ -172,5 +178,39 @@ export const blockToObject = (blocks: Array<Block>) => {
   return {
     blocks: Objects,
     toc: toc
+  }
+}
+
+export const databaseToObject = (pages: Array<Page>) => {
+  const Pages: Array<PageObject> = []
+  const Tags: TagObject = {}
+  pages.forEach((value) => {
+    const multiSelect: Array<TagObject> = []
+    value.properties.tag.multi_select.forEach((item) => {
+      const tag = {
+        [item.id]: { name: item.name, color: item.color, pageId: [value.id] }
+      }
+      if (!(item.id in Tags)) {
+        Object.assign(Tags, tag)
+      } else {
+        Tags[item.id].pageId.push(value.id)
+      }
+      multiSelect.push(tag)
+    })
+    Pages.push({
+      id: value.id,
+      createdTime: value.created_time,
+      lastEditedTime: value.last_edited_time,
+      object: value.object,
+      properties: {
+        title: value.properties.title.title[0].plain_text,
+        tag: multiSelect
+      },
+      url: value.url
+    })
+  })
+  return {
+    pages: Pages,
+    tags: Tags
   }
 }
