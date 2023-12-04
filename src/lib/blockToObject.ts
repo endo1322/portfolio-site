@@ -185,7 +185,7 @@ export const databaseToObject = (pages: Array<Page>) => {
   const Pages: Array<PageObject> = []
   const Tags: TagObject = {}
   pages.forEach((value) => {
-    const multiSelect: Array<TagObject> = []
+    const multiSelect: TagObject = {}
     value.properties.tag.multi_select.forEach((item) => {
       const tag = {
         [item.id]: { name: item.name, color: item.color, pageId: [value.id] }
@@ -195,10 +195,24 @@ export const databaseToObject = (pages: Array<Page>) => {
       } else {
         Tags[item.id].pageId.push(value.id)
       }
-      multiSelect.push(tag)
+      Object.assign(multiSelect, tag)
     })
+    let cover = null
+    if (value.cover) {
+      const typeKey = value.cover.type
+      console.log(typeKey)
+      if (value.cover.type) {
+        console.log(value.cover[value.cover.type])
+        cover = {
+          type: value.cover.type,
+          [value.cover.type]: { url: value.cover[value.cover.type].url }
+        }
+      }
+    }
+
     Pages.push({
       id: value.id,
+      cover: cover,
       createdTime: value.created_time,
       lastEditedTime: value.last_edited_time,
       object: value.object,

@@ -25,8 +25,8 @@ export default function Blog(props: BlogType) {
     title: 'Blog'
   }
 
-  const allBlog: Array<Page> = props.posts
-  const [filteredBlog, setFilteredList] = useState<Array<Page>>(allBlog)
+  const allBlog: Array<PageObject> = pagesObject
+  const [filteredBlog, setFilteredList] = useState<Array<PageObject>>(allBlog)
   const [selectedCount, setSelectedCount] = useState<number>(0)
   const filterTagCount: Record<string, number> = {}
   allBlog.forEach((value) => {
@@ -95,7 +95,10 @@ export default function Blog(props: BlogType) {
   const itemsPerPage: number = 10
   const [itemsOffset, setItemsOffset] = useState<number>(0)
   const endOffset: number = itemsOffset + itemsPerPage
-  const currentBlog: Array<Page> = filteredBlog.slice(itemsOffset, endOffset)
+  const currentBlog: Array<PageObject> = filteredBlog.slice(
+    itemsOffset,
+    endOffset
+  )
   const pageCount: number = Math.ceil(filteredBlog.length / itemsPerPage)
   const onPageChange = (e: { selected: number }) => {
     const newOffset = (e.selected * itemsPerPage) % filteredBlog.length

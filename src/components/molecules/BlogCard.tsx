@@ -1,13 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
-import { MultiSelect } from '@/types/Notion'
 import { Tag } from '@/components/atoms/Tag'
+import { TagObject } from '@/types/NotionToObject'
 
 interface BlogCardProps {
   id: string
   title: string
   createdDate: RegExpMatchArray | null
-  multiSelect: Array<MultiSelect>
+  multiSelect: TagObject
   onSetBool: (e: { selectedTagId: string }) => void
 }
 
@@ -20,18 +20,18 @@ export const BlogCard = (props: BlogCardProps) => {
       <div className="pl-4">
         <div className="text-3xl mb-1">{props.title}</div>
         <ul className="flex flex-row gap-1 flex-wrap">
-          {props.multiSelect.map((value) => (
+          {Object.keys(props.multiSelect).map((key) => (
             <button
-              key={`${props.id}${value.id}`}
+              key={`${props.id}${key}`}
               onClick={() => {
-                props.onSetBool({ selectedTagId: value.id })
+                props.onSetBool({ selectedTagId: key })
               }}
             >
               <Tag
                 className=""
-                id={value.id}
-                name={value.name}
-                color={value.color}
+                id={key}
+                name={props.multiSelect[key].name}
+                color={props.multiSelect[key].color}
               ></Tag>
             </button>
           ))}

@@ -1,6 +1,7 @@
 import { RichText, Page, MultiSelect } from '@/types/Notion'
 import {
   BlockObject,
+  PageObject,
   TagObject,
   TagProperty,
   TocObject
@@ -24,7 +25,7 @@ export type LinkType = {
 }
 
 export type BlogListType = {
-  currentBlog: Array<Page>
+  currentBlog: Array<PageObject>
   selectedTags: TagObject
   onSetBool: (e: { selectedTagId: string }) => void
 }
