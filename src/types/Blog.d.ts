@@ -6,7 +6,6 @@ import {
   TagProperty,
   TocObject
 } from '@/types/NotionToObject'
-import { ReactPaginateProps } from 'react-paginate'
 
 export type BlogArticleCardType = {
   title: Array<RichText>
@@ -30,4 +29,7 @@ export type BlogListType = {
   onSetBool: (e: { selectedTagId: string }) => void
 }
 
-export type ReactPagenateType = ReactPaginateProps
+export type PaginationType = {
+  pageCount: number
+  onPageChange: (e: { selected: number }) => void
+}

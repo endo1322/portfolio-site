@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { getDatabase } from '@/lib/notion'
 import { Page } from '@/types/Notion'
-import { ReactPagenateType } from '@/types/Blog'
 import { HeroType } from '@/types/Common'
 import { BlogIndexTemplate } from '@/components/templates/BlogIndexTemplate'
 import { databaseToObject } from '@/lib/blockToObject'
@@ -101,7 +100,8 @@ export default function Blog(props: BlogType) {
   )
   const pageCount: number = Math.ceil(filteredBlog.length / itemsPerPage)
   const onPageChange = (e: { selected: number }) => {
-    const newOffset = (e.selected * itemsPerPage) % filteredBlog.length
+    console.log(e.selected)
+    const newOffset = ((e.selected - 1) * itemsPerPage) % filteredBlog.length
     setItemsOffset(newOffset)
   }
 
@@ -111,31 +111,9 @@ export default function Blog(props: BlogType) {
     onSetBool: onSetBool
   }
 
-  const pagenate: ReactPagenateType = {
-    // forcePage: currentPage, // 現在のページをreactのstateで管理したい場合等
+  const pagination = {
     pageCount: pageCount,
-    onPageChange: onPageChange,
-    // marginPagesDisplayed={4} // 先頭と末尾に表示するページ数
-    // pageRangeDisplayed={2} // 現在のページの前後をいくつ表示させるか
-    containerClassName: 'flex justify-center gap-2 mb-2 text-lg', // ul(pagination本体)
-    // pageClassName="page-item" // li
-    // pageLinkClassName="page-link rounded-full" // a
-    // activeClassName="active" // active.li
-    // activeLinkClassName="active" // active.li < a
-
-    // 戻る・進む関連
-    previousClassName: '', // li
-    nextClassName: '', // li
-    previousLabel: '<', // a
-    previousLinkClassName: '',
-    nextLabel: '>', // a
-    nextLinkClassName: '',
-    // 先頭 or 末尾に行ったときにそれ以上戻れ(進め)なくする
-    disabledClassName: 'disabled-button d-none',
-    // 中間ページの省略表記関連
-    breakLabel: '...',
-    breakClassName: '',
-    breakLinkClassName: ''
+    onPageChange: onPageChange
   }
 
   return (
@@ -143,7 +121,7 @@ export default function Blog(props: BlogType) {
       className={'container'}
       hero={hero}
       blogList={blogList}
-      pagenate={pagenate}
+      pagination={pagination}
     />
   )
 }
