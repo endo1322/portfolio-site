@@ -31,6 +31,7 @@ export const BlogList = (props: BlogListPropsType) => {
         <BlogCard
           key={value.id}
           id={value.id}
+          coverUrl={value.coverUrl}
           createdDate={value.createdTime.match('\\d{4}-\\d{2}-\\d{2}')}
           title={value.properties.title}
           multiSelect={value.properties.tag}

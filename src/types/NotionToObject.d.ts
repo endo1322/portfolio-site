@@ -29,14 +29,7 @@ export type TocObject = {
 
 export type PageObject = {
   id: string
-  cover: {
-    type: string
-    [key: string]:
-      | {
-          url: string
-        }
-      | string
-  } | null
+  coverUrl: string | null
   createdTime: string
   lastEditedTime: string
   object: string

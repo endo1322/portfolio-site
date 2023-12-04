@@ -197,22 +197,14 @@ export const databaseToObject = (pages: Array<Page>) => {
       }
       Object.assign(multiSelect, tag)
     })
-    let cover = null
-    if (value.cover) {
-      const typeKey = value.cover.type
-      console.log(typeKey)
-      if (value.cover.type) {
-        console.log(value.cover[value.cover.type])
-        cover = {
-          type: value.cover.type,
-          [value.cover.type]: { url: value.cover[value.cover.type].url }
-        }
-      }
+    let coverUrl = null
+    if (value.cover && value.cover.type) {
+      coverUrl = value.cover[value.cover.type].url
     }
 
     Pages.push({
       id: value.id,
-      cover: cover,
+      coverUrl: coverUrl,
       createdTime: value.created_time,
       lastEditedTime: value.last_edited_time,
       object: value.object,
