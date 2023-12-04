@@ -13,10 +13,19 @@ export const BlogList = (props: BlogListPropsType) => {
 
   return (
     <div className="">
-      <ClearTagButton
-        selectedTag={props.blogList.selectedTag}
-        onClearFilteredTag={props.blogList.onClearFilteredTag}
-      />
+      <ul className="flex flex-row gap-1 flex-wrap">
+        {Object.keys(props.blogList.selectedTags).length === 0 ? (
+          <></>
+        ) : (
+          Object.keys(props.blogList.selectedTags).map((value) => (
+            <ClearTagButton
+              id={value}
+              tagValue={props.blogList.selectedTags[value]}
+              onClearFilteredTag={props.blogList.onClearFilteredTag}
+            />
+          ))
+        )}
+      </ul>
       {blogList.map((value) => (
         <BlogCard
           key={value['id']}

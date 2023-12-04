@@ -186,10 +186,14 @@ export const databaseToObject = (pages: Array<Page>) => {
   const Tags: TagObject = {}
   pages.forEach((value) => {
     const multiSelect: Array<TagObject> = []
-    value.properties.tag.multi_select.forEach((value) => {
-      const tag = { [value.id]: { name: value.name, color: value.color } }
-      if (!(value.id in Tags)) {
+    value.properties.tag.multi_select.forEach((item) => {
+      const tag = {
+        [item.id]: { name: item.name, color: item.color, pageId: [value.id] }
+      }
+      if (!(item.id in Tags)) {
         Object.assign(Tags, tag)
+      } else {
+        Tags[item.id].pageId.push(value.id)
       }
       multiSelect.push(tag)
     })

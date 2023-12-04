@@ -39,4 +39,10 @@ export type PageObject = {
   url: string
 }
 
-export type TagObject = Record<string, { name: string; color: string }>
+export type TagObject = Record<string, TagValue>
+
+type TagValue = {
+  name: string
+  color: string
+  pageId: Array<string>
+}

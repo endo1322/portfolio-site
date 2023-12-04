@@ -27,37 +27,50 @@ export default function Blog(props: BlogType) {
 
   const allBlog: Array<Page> = props.posts
   const [filteredBlog, setFilteredList] = useState<Array<Page>>(allBlog)
+  const filterTagCount: Record<string, number> = {}
+  allBlog.forEach((value) => {
+    filterTagCount[value.id] = 0
+  })
 
-  const [selectedTagId, setSelectedTagId] = useState<string>('')
-  console.log(selectedTagId)
+  const [selectedTagIds, setSelectedTagId] = useState<Array<string>>([])
+  console.log(selectedTagIds)
   // クエリでタグを指定
   const searchParams = useSearchParams()
   const queryTagId: string = searchParams.get('tagId') || ''
   useEffect(() => {
     if (queryTagId !== '') {
-      setSelectedTagId(queryTagId)
+      setSelectedTagId([...selectedTagIds, queryTagId])
     }
   }, [queryTagId])
 
   // ボタンでタグを選択
   const onFilterTag = (e: { selectedTagId: string }) => {
-    setSelectedTagId(e.selectedTagId)
+    setSelectedTagId([...selectedTagIds, e.selectedTagId])
   }
 
-  const onClearFilteredTag = () => {
-    setSelectedTagId('')
+  const onClearFilteredTag = (e: { selectedTagId: string }) => {
+    setSelectedTagId(
+      selectedTagIds.filter((value) => value !== e.selectedTagId)
+    )
   }
 
   useEffect(() => {
-    if (selectedTagId == '') {
+    if (selectedTagIds.length === 0) {
       setFilteredList(allBlog)
       return
     }
-    const filtered = allBlog.filter((value) =>
-      value.properties.tag.multi_select.some((tag) => tag.id === selectedTagId)
-    )
+    selectedTagIds.forEach((value) => {
+      tagsObject[value].pageId.forEach((item) => {
+        filterTagCount[item] += 1
+      })
+    })
+    const filtered = allBlog.filter((value) => filterTagCount[value.id] > 0)
     setFilteredList(filtered)
-  }, [selectedTagId])
+  }, [selectedTagIds])
+  const selectedTags: TagObject = {}
+  selectedTagIds.forEach((value) => {
+    selectedTags[value] = tagsObject[value]
+  })
 
   const itemsPerPage: number = 10
   const [itemsOffset, setItemsOffset] = useState<number>(0)
@@ -71,7 +84,7 @@ export default function Blog(props: BlogType) {
 
   const blogList = {
     currentBlog: currentBlog,
-    selectedTag: { [selectedTagId]: tagsObject[selectedTagId] },
+    selectedTags: selectedTags,
     onFilterTag: onFilterTag,
     onClearFilteredTag: onClearFilteredTag
   }
