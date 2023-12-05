@@ -33,6 +33,8 @@ export default function Blog(props: BlogType) {
 
   const allBlog: Array<PageObject> = pagesObject
   const [filteredBlog, setFilteredList] = useState<Array<PageObject>>(allBlog)
+  const [searchedBlog, setSearchedBlog] = useState<Array<PageObject>>(allBlog)
+  const [hittedBlog, setHittedBlog] = useState<Array<PageObject>>(allBlog)
   const [selectedCount, setSelectedCount] = useState<number>(0)
   const filterTagCount: Record<string, number> = {}
   allBlog.forEach((value) => {
@@ -103,23 +105,21 @@ export default function Blog(props: BlogType) {
       keyword: ''
     }
   })
-  const { reset } = useFormMethods
   const onSubmit: SubmitHandler<SearchFormType> = async (e: {
     keyword: string
   }) => {
     if (e.keyword === '') {
-      setFilteredList(filteredBlog)
+      setSearchedBlog(filteredBlog)
       return
     }
-    const searched = allBlog.filter(
+    const searched = filteredBlog.filter(
       (value) =>
         value.properties.fullText !== null &&
         value.properties.fullText
           ?.toUpperCase()
           .indexOf(e.keyword.toUpperCase()) !== -1
     )
-    setFilteredList(searched)
-    reset()
+    setSearchedBlog(searched)
   }
   const searchFormItem: SearchFormItemType = {
     keyword: {
@@ -140,17 +140,24 @@ export default function Blog(props: BlogType) {
     useFormMethods: useFormMethods
   }
 
+  useEffect(() => {
+    setHittedBlog(filteredBlog)
+  }, [filteredBlog])
+  useEffect(() => {
+    setHittedBlog(searchedBlog)
+  }, [searchedBlog])
+
   const itemsPerPage: number = 10
   const [itemsOffset, setItemsOffset] = useState<number>(0)
   const endOffset: number = itemsOffset + itemsPerPage
-  const currentBlog: Array<PageObject> = filteredBlog.slice(
+  const currentBlog: Array<PageObject> = hittedBlog.slice(
     itemsOffset,
     endOffset
   )
-  const pageCount: number = Math.ceil(filteredBlog.length / itemsPerPage)
+  const pageCount: number = Math.ceil(hittedBlog.length / itemsPerPage)
   const onPageChange = (e: { selected: number }) => {
     console.log(e.selected)
-    const newOffset = ((e.selected - 1) * itemsPerPage) % filteredBlog.length
+    const newOffset = ((e.selected - 1) * itemsPerPage) % hittedBlog.length
     setItemsOffset(newOffset)
   }
 
