@@ -19,7 +19,7 @@ export const SearchBar = (props: SearchBarTyoe) => {
   return (
     <FormProvider {...props.useFormMethods}>
       <form
-        className="flex flex-row"
+        className="flex flex-row mx-auto max-w-2xl"
         onSubmit={handleSubmit(props.submitItem.onSubmit)}
       >
         <Input

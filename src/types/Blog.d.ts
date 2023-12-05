@@ -50,7 +50,7 @@ export type SearchFormItemType = {
 export type SearchSubmitItemType = {
   type: string
   value: string
-  onSubmit: (data: any) => void
+  onSubmit: (e: { keyword: string }) => void
 }
 
 type useFormMethodsType<

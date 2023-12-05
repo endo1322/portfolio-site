@@ -31,35 +31,6 @@ export default function Blog(props: BlogType) {
     title: 'Blog'
   }
 
-  const useFormMethods = useForm<SearchFormType>({
-    defaultValues: {
-      keyword: ''
-    }
-  })
-  const { reset } = useFormMethods
-  const onSubmit: SubmitHandler<SearchFormType> = async (data) => {
-    console.log(data)
-    reset()
-  }
-  const searchFormItem: SearchFormItemType = {
-    keyword: {
-      name: 'キーワード',
-      type: 'keyword',
-      placeholder: 'キーワード',
-      required: false
-    }
-  }
-  const searchSubmitItem: SearchSubmitItemType = {
-    type: 'submit',
-    value: '検索する',
-    onSubmit: onSubmit
-  }
-  const searchBar: SearchBarType = {
-    searchFormItem: searchFormItem,
-    searchSubmitItem: searchSubmitItem,
-    useFormMethods: useFormMethods
-  }
-
   const allBlog: Array<PageObject> = pagesObject
   const [filteredBlog, setFilteredList] = useState<Array<PageObject>>(allBlog)
   const [selectedCount, setSelectedCount] = useState<number>(0)
@@ -126,6 +97,48 @@ export default function Blog(props: BlogType) {
       selectedTags[value] = tagsObject[value]
     }
   })
+
+  const useFormMethods = useForm<SearchFormType>({
+    defaultValues: {
+      keyword: ''
+    }
+  })
+  const { reset } = useFormMethods
+  const onSubmit: SubmitHandler<SearchFormType> = async (e: {
+    keyword: string
+  }) => {
+    if (e.keyword === '') {
+      setFilteredList(filteredBlog)
+      return
+    }
+    const searched = allBlog.filter(
+      (value) =>
+        value.properties.fullText !== null &&
+        value.properties.fullText
+          ?.toUpperCase()
+          .indexOf(e.keyword.toUpperCase()) !== -1
+    )
+    setFilteredList(searched)
+    reset()
+  }
+  const searchFormItem: SearchFormItemType = {
+    keyword: {
+      name: 'キーワード',
+      type: 'keyword',
+      placeholder: 'キーワード',
+      required: false
+    }
+  }
+  const searchSubmitItem: SearchSubmitItemType = {
+    type: 'submit',
+    value: '検索する',
+    onSubmit: onSubmit
+  }
+  const searchBar: SearchBarType = {
+    searchFormItem: searchFormItem,
+    searchSubmitItem: searchSubmitItem,
+    useFormMethods: useFormMethods
+  }
 
   const itemsPerPage: number = 10
   const [itemsOffset, setItemsOffset] = useState<number>(0)
