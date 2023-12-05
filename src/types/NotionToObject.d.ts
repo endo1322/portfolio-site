@@ -36,6 +36,7 @@ export type PageObject = {
   properties: {
     title: string
     tag: TagObject
+    fullText: string | null
   }
   url: string
 }
