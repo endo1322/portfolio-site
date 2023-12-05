@@ -201,6 +201,10 @@ export const databaseToObject = (pages: Array<Page>) => {
     if (value.cover && value.cover.type) {
       coverUrl = value.cover[value.cover.type].url
     }
+    let fullText = null
+    if (value.properties.fullText.rich_text.length != 0) {
+      fullText = value.properties.fullText.rich_text[0].plain_text
+    }
 
     Pages.push({
       id: value.id,
@@ -210,7 +214,8 @@ export const databaseToObject = (pages: Array<Page>) => {
       object: value.object,
       properties: {
         title: value.properties.title.title[0].plain_text,
-        tag: multiSelect
+        tag: multiSelect,
+        fullText: fullText
       },
       url: value.url
     })

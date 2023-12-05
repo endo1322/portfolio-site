@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSearchParams } from 'next/navigation'
 import { getDatabase } from '@/lib/notion'
 import { Page } from '@/types/Notion'
@@ -6,6 +7,12 @@ import { HeroType } from '@/types/Common'
 import { BlogIndexTemplate } from '@/components/templates/BlogIndexTemplate'
 import { databaseToObject } from '@/lib/blockToObject'
 import { PageObject, TagObject } from '@/types/NotionToObject'
+import {
+  SearchBarType,
+  SearchFormItemType,
+  SearchFormType,
+  SearchSubmitItemType
+} from '@/types/Blog'
 
 export const databaseId: string = process.env.NOTION_TEST_BLOG_DATABASE_ID || ''
 
@@ -26,6 +33,8 @@ export default function Blog(props: BlogType) {
 
   const allBlog: Array<PageObject> = pagesObject
   const [filteredBlog, setFilteredList] = useState<Array<PageObject>>(allBlog)
+  const [searchedBlog, setSearchedBlog] = useState<Array<PageObject>>(allBlog)
+  const [hittedBlog, setHittedBlog] = useState<Array<PageObject>>(allBlog)
   const [selectedCount, setSelectedCount] = useState<number>(0)
   const filterTagCount: Record<string, number> = {}
   allBlog.forEach((value) => {
@@ -91,17 +100,64 @@ export default function Blog(props: BlogType) {
     }
   })
 
+  const useFormMethods = useForm<SearchFormType>({
+    defaultValues: {
+      keyword: ''
+    }
+  })
+  const onSubmit: SubmitHandler<SearchFormType> = async (e: {
+    keyword: string
+  }) => {
+    if (e.keyword === '') {
+      setSearchedBlog(filteredBlog)
+      return
+    }
+    const searched = filteredBlog.filter(
+      (value) =>
+        value.properties.fullText !== null &&
+        value.properties.fullText
+          ?.toUpperCase()
+          .indexOf(e.keyword.toUpperCase()) !== -1
+    )
+    setSearchedBlog(searched)
+  }
+  const searchFormItem: SearchFormItemType = {
+    keyword: {
+      name: 'キーワード',
+      type: 'keyword',
+      placeholder: 'キーワード',
+      required: false
+    }
+  }
+  const searchSubmitItem: SearchSubmitItemType = {
+    type: 'submit',
+    value: '検索する',
+    onSubmit: onSubmit
+  }
+  const searchBar: SearchBarType = {
+    searchFormItem: searchFormItem,
+    searchSubmitItem: searchSubmitItem,
+    useFormMethods: useFormMethods
+  }
+
+  useEffect(() => {
+    setHittedBlog(filteredBlog)
+  }, [filteredBlog])
+  useEffect(() => {
+    setHittedBlog(searchedBlog)
+  }, [searchedBlog])
+
   const itemsPerPage: number = 10
   const [itemsOffset, setItemsOffset] = useState<number>(0)
   const endOffset: number = itemsOffset + itemsPerPage
-  const currentBlog: Array<PageObject> = filteredBlog.slice(
+  const currentBlog: Array<PageObject> = hittedBlog.slice(
     itemsOffset,
     endOffset
   )
-  const pageCount: number = Math.ceil(filteredBlog.length / itemsPerPage)
+  const pageCount: number = Math.ceil(hittedBlog.length / itemsPerPage)
   const onPageChange = (e: { selected: number }) => {
     console.log(e.selected)
-    const newOffset = ((e.selected - 1) * itemsPerPage) % filteredBlog.length
+    const newOffset = ((e.selected - 1) * itemsPerPage) % hittedBlog.length
     setItemsOffset(newOffset)
   }
 
@@ -120,6 +176,7 @@ export default function Blog(props: BlogType) {
     <BlogIndexTemplate
       className={'container'}
       hero={hero}
+      searchBar={searchBar}
       blogList={blogList}
       pagination={pagination}
     />

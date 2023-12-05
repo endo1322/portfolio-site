@@ -34,6 +34,11 @@ export type Page = {
       type: string
       multi_select: Array<MultiSelect>
     }
+    fullText: {
+      id: string
+      type: string
+      rich_text: Array<RichText>
+    }
   }
   url: string
 }
