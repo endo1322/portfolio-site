@@ -6,6 +6,7 @@ import { Page } from '@/types/Notion'
 import { HeroType } from '@/types/Common'
 import { BlogIndexTemplate } from '@/components/templates/BlogIndexTemplate'
 import { databaseToObject } from '@/lib/blockToObject'
+import { getWindowSize } from '@/lib/getWindowSize'
 import { PageObject, TagObject } from '@/types/NotionToObject'
 import {
   SearchBarType,
@@ -21,6 +22,8 @@ interface BlogType {
 }
 
 export default function Blog(props: BlogType) {
+  const { height, width } = getWindowSize()
+
   console.log(props)
   const databaseObject: { pages: Array<PageObject>; tags: TagObject } =
     databaseToObject(props.posts)
