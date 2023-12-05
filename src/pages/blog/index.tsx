@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useSearchParams } from 'next/navigation'
 import { getDatabase } from '@/lib/notion'
 import { Page } from '@/types/Notion'
@@ -6,6 +7,12 @@ import { HeroType } from '@/types/Common'
 import { BlogIndexTemplate } from '@/components/templates/BlogIndexTemplate'
 import { databaseToObject } from '@/lib/blockToObject'
 import { PageObject, TagObject } from '@/types/NotionToObject'
+import {
+  SearchBarType,
+  SearchFormItemType,
+  SearchFormType,
+  SearchSubmitItemType
+} from '@/types/Blog'
 
 export const databaseId: string = process.env.NOTION_TEST_BLOG_DATABASE_ID || ''
 
@@ -22,6 +29,35 @@ export default function Blog(props: BlogType) {
 
   const hero: HeroType = {
     title: 'Blog'
+  }
+
+  const useFormMethods = useForm<SearchFormType>({
+    defaultValues: {
+      text: ''
+    }
+  })
+  const { reset } = useFormMethods
+  const onSubmit: SubmitHandler<SearchFormType> = async (data) => {
+    console.log(data)
+    reset()
+  }
+  const searchFormItem: SearchFormItemType = {
+    keyword: {
+      name: 'キーワード',
+      type: 'keyword',
+      placeholder: 'キーワード',
+      required: false
+    }
+  }
+  const searchSubmitItem: SearchSubmitItemType = {
+    type: 'submit',
+    value: '検索する',
+    onSubmit: onSubmit
+  }
+  const searchBar: SearchBarType = {
+    searchFormItem: searchFormItem,
+    searchSubmitItem: searchSubmitItem,
+    useFormMethods: useFormMethods
   }
 
   const allBlog: Array<PageObject> = pagesObject
@@ -120,6 +156,7 @@ export default function Blog(props: BlogType) {
     <BlogIndexTemplate
       className={'container'}
       hero={hero}
+      searchBar={searchBar}
       blogList={blogList}
       pagination={pagination}
     />
