@@ -29,12 +29,13 @@ export type TocObject = {
 
 export type PageObject = {
   id: string
+  coverUrl: string | null
   createdTime: string
   lastEditedTime: string
   object: string
   properties: {
     title: string
-    tag: Array<MultiSelectObject>
+    tag: TagObject
   }
   url: string
 }

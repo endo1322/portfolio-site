@@ -1,7 +1,12 @@
 export type Page = {
   id: string
   archived: boolean
-  //   cover: null
+  cover: {
+    type: string | null
+    [key: string]: {
+      url: string
+    }
+  }
   //   icon: null
   created_by: {
     object: string
