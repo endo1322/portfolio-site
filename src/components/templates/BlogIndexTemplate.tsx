@@ -19,6 +19,7 @@ export const BlogIndexTemplate = (props: BlogIndexTemplatePropsType) => {
     <div className={`${props.className}`}>
       <Hero title="Blog" />
       <SearchBar
+        className={'mb-3'}
         formItem={props.searchBar.searchFormItem}
         submitItem={props.searchBar.searchSubmitItem}
         useFormMethods={props.searchBar.useFormMethods}

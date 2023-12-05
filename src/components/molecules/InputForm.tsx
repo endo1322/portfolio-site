@@ -23,6 +23,7 @@ export const InputForm = (props: InputFormProps) => {
         )}
       </label>
       <Input
+        className={'ml-5'}
         name={props.name}
         type={props.type}
         placeholder={props.placeholder}
