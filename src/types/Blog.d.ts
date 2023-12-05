@@ -35,7 +35,7 @@ export type PaginationType = {
 }
 
 export type SearchFormType = {
-  text: string
+  keyword: string
 }
 
 export type SearchFormItemType = {

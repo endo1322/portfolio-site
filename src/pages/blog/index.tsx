@@ -33,7 +33,7 @@ export default function Blog(props: BlogType) {
 
   const useFormMethods = useForm<SearchFormType>({
     defaultValues: {
-      text: ''
+      keyword: ''
     }
   })
   const { reset } = useFormMethods
