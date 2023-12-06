@@ -25,10 +25,25 @@ export default function Home(props: HomePropsType) {
     ]
   }
 
+  const profile = {
+    icon: 'icon.svg',
+    text: [
+      '　はじめまして！！',
+      '　ぼんdという名前で活動をしています。',
+      '　今年の秋に大学をCS専攻で卒業し、来年の春から同専攻の大学院に進学予定です。',
+      '　現在はフロント、バック、クラウドなど広い視点で楽しみながら勉強しています！！'
+    ]
+  }
+
   const blogList = pagesObject.slice(0, 5)
 
   return (
-    <HomeTemplate className={'container'} hero={hero} blogList={blogList} />
+    <HomeTemplate
+      className={'container'}
+      hero={hero}
+      profile={profile}
+      blogList={blogList}
+    />
   )
 }
 

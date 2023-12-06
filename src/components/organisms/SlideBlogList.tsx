@@ -12,7 +12,7 @@ type SlideBlogListProps = {
 
 export const SlideBlogList = (props: SlideBlogListProps) => {
   return (
-    <div className="max-w-5xl">
+    <div className={`${props.className}`}>
       <div className="flex flex-row items-center">
         <FontAwesomeIcon
           className="mr-2"
