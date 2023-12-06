@@ -2,16 +2,16 @@ import { useEffect, useState } from 'react'
 
 export const getWindowSize = () => {
   const [windowSize, setWindowSize] = useState({
-    width: 0,
-    height: 0
+    screenWidth: 0,
+    screenHeight: 0
   })
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const handleResize = () => {
         setWindowSize({
-          width: window.innerWidth,
-          height: window.innerHeight
+          screenWidth: window.innerWidth,
+          screenHeight: window.innerHeight
         })
       }
 

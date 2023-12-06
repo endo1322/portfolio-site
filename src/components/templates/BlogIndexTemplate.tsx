@@ -16,7 +16,7 @@ type BlogIndexTemplatePropsType = {
 
 export const BlogIndexTemplate = (props: BlogIndexTemplatePropsType) => {
   return (
-    <div className={`${props.className}`}>
+    <div className={`flex-grow relative h-full ${props.className}`}>
       <Hero title="Blog" />
       <SearchBar
         className={'mb-3'}
@@ -24,9 +24,9 @@ export const BlogIndexTemplate = (props: BlogIndexTemplatePropsType) => {
         submitItem={props.searchBar.searchSubmitItem}
         useFormMethods={props.searchBar.useFormMethods}
       />
-      <BlogList blogList={props.blogList} />
+      <BlogList className={'mb-20'} blogList={props.blogList} />
       <Pagination
-        className="flex justify-center mb-2"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center mb-5 w-96"
         count={props.pagination.pageCount}
         onChange={(e, page) =>
           props.pagination.onPageChange({ selected: page })
