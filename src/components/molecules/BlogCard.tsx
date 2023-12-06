@@ -31,7 +31,7 @@ export const BlogCard = (props: BlogCardProps) => {
       )}
       <div className="flex-grow min-w-0">
         <div>{props.createdDate}</div>
-        <div className="flex flex-col pl-2 h-[6.8rem]">
+        <div className="flex flex-col px-2 h-[6.8rem]">
           <div className="text-3xl mb-1 max-h-[4.5rem] overflow-hidden">
             {props.title}
           </div>
