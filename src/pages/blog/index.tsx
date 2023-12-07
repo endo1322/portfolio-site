@@ -6,7 +6,7 @@ import { Page } from '@/types/Notion'
 import { HeroType } from '@/types/Common'
 import { BlogIndexTemplate } from '@/components/templates/BlogIndexTemplate'
 import { databaseToObject } from '@/lib/blockToObject'
-import { getWindowSize } from '@/lib/getWindowSize'
+import { useWindowSize } from '@/lib/useWindowSize'
 import { PageObject, TagObject } from '@/types/NotionToObject'
 import {
   SearchBarType,
@@ -22,7 +22,7 @@ interface BlogType {
 }
 
 export default function Blog(props: BlogType) {
-  const { screenHeight, screenWidth } = getWindowSize()
+  const { screenHeight, screenWidth } = useWindowSize()
   const blogListHeight = screenHeight - 450
 
   console.log(props)
