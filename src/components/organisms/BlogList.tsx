@@ -4,6 +4,7 @@ import { BlogListType } from '@/types/Blog'
 import { ClearTagButton } from '../molecules/ClearTagButton'
 
 interface BlogListPropsType {
+  className: string
   blogList: BlogListType
 }
 
@@ -12,7 +13,7 @@ export const BlogList = (props: BlogListPropsType) => {
   console.log(blogList)
 
   return (
-    <div className="">
+    <div className={`${props.className}`}>
       <ul className="flex flex-row gap-1 flex-wrap">
         {Object.keys(props.blogList.selectedTags).length === 0 ? (
           <></>

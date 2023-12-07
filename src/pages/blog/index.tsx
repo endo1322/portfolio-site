@@ -6,6 +6,7 @@ import { Page } from '@/types/Notion'
 import { HeroType } from '@/types/Common'
 import { BlogIndexTemplate } from '@/components/templates/BlogIndexTemplate'
 import { databaseToObject } from '@/lib/blockToObject'
+import { useWindowSize } from '@/lib/useWindowSize'
 import { PageObject, TagObject } from '@/types/NotionToObject'
 import {
   SearchBarType,
@@ -21,6 +22,9 @@ interface BlogType {
 }
 
 export default function Blog(props: BlogType) {
+  const { screenHeight, screenWidth } = useWindowSize()
+  const blogListHeight = screenHeight - 450
+
   console.log(props)
   const databaseObject: { pages: Array<PageObject>; tags: TagObject } =
     databaseToObject(props.posts)
@@ -147,7 +151,10 @@ export default function Blog(props: BlogType) {
     setHittedBlog(searchedBlog)
   }, [searchedBlog])
 
-  const itemsPerPage: number = 10
+  const [itemsPerPage, SetItemsPerPage] = useState<number>(10)
+  useEffect(() => {
+    SetItemsPerPage(Math.trunc(blogListHeight / 150))
+  }, [blogListHeight])
   const [itemsOffset, setItemsOffset] = useState<number>(0)
   const endOffset: number = itemsOffset + itemsPerPage
   const currentBlog: Array<PageObject> = hittedBlog.slice(
