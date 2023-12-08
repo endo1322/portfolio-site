@@ -2,3 +2,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .full-container {
+    margin: 0 calc(50% - 50vw);
+    height: calc(100vh - 80px);
+    width: 100vw;
+    min-height: calc(100vh - 80px);
+    max-height: calc(100vh - 80px);
+  }
+}
