@@ -17,12 +17,18 @@ export type WakaTimeType = {
   }
   language: {
     weekly: {
-      data: Array<{ name: string; percent: number; color: string }>
+      data: Array<LanguageType>
     }
     yearly: {
-      data: Array<{ name: string; percent: number; color: string }>
+      data: Array<LanguageType>
     }
   }
+}
+
+export type LanguageType = {
+  name: string
+  percent: number
+  color: string
 }
 
 export type DaylyActivityType = {

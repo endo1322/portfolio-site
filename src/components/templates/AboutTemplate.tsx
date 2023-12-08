@@ -5,8 +5,8 @@ import { HeroType } from '@/types/Common'
 import { AboutArticleCardType, WakaTimeType } from '@/types/About'
 import { History } from '@/components/organisms/History'
 import { HeatMap } from '@/components/molecules/HeatMap'
-import { PieChart } from '@mui/x-charts/PieChart'
-import { MyBarChart } from '../molecules/MyBarChart'
+import { MyPieChart } from '@/components/molecules/MyPieChart'
+import { MyBarChart } from '@/components/molecules/MyBarChart'
 
 interface AboutTemplateProps {
   className: string
@@ -18,25 +18,22 @@ interface AboutTemplateProps {
 
 export const AboutTemplate = (props: AboutTemplateProps) => {
   console.log(props.wakaTime)
-  // const data = []
-  // props.wakaTime.language.yearly.data.map((value) => {
-  //   if (value.percent < 1) return
-  //   data.push({ value: value.percent, label: value.name, color: value.color })
-  // })
 
   return (
     <div className={`${props.className}`}>
       <Hero title={props.hero.title} text={props.hero.text} />
-      {/* <PieChart
-        series={[
-          {
-            data,
-            highlightScope: { faded: 'global', highlighted: 'item' },
-            faded: { innerRadius: 0, additionalRadius: -10, color: 'gray' }
-          }
-        ]}
+
+      <MyPieChart
+        className=""
         height={200}
-      /> */}
+        language={props.wakaTime.language.weekly.data}
+      />
+      <MyPieChart
+        className=""
+        height={200}
+        language={props.wakaTime.language.yearly.data}
+      />
+
       <MyBarChart
         clsssName=""
         width={500}
