@@ -5,13 +5,15 @@ import { Block, Page } from '@/types/Notion'
 import { blockToObject } from '@/lib/blockToObject'
 import { AboutTemplate } from '@/components/templates/AboutTemplate'
 import { HeroType } from '@/types/Common'
-import { AboutArticleCardType } from '@/types/About'
+import { AboutArticleCardType, WakaTimeType } from '@/types/About'
+import { getWakaTime } from '@/lib/wakaTime'
 
 const pageId: string = process.env.NOTION_ABOUT_PAGE_ID || ''
 
 type AboutType = {
   page: Page
   blocks: Array<Block>
+  wakaTime: WakaTimeType
 }
 
 export default function About(props: AboutType) {
@@ -97,6 +99,8 @@ export const getStaticProps: GetStaticProps = async () => {
   const page = await getPage(pageId)
   const blocks = await getBlocks(page.id)
 
+  const wakaTime = await getWakaTime()
+
   const timestamp = new Date().toLocaleString()
   const message = `${timestamp}にgetStaticPropsが実行されました。`
   console.log('pages/about.tsx', message)
@@ -104,7 +108,8 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       page: page,
-      blocks: blocks
+      blocks: blocks,
+      wakaTime: wakaTime
     },
     revalidate: 60
   }
