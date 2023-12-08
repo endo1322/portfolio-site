@@ -90,6 +90,7 @@ export default function About(props: AboutType) {
       className={'container'}
       hero={hero}
       history={history}
+      wakaTime={props.wakaTime}
       aboutArticleCard={aboutArticleCard}
     />
   )
