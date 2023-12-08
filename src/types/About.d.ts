@@ -8,22 +8,10 @@ export type AboutArticleCardType = {
 export type WakaTimeType = {
   activity: {
     weekly: {
-      data: Array<{
-        grand_total: {
-          decimal: string
-          digital: string
-          hours: number
-          minutes: number
-          total_seconds: number
-        }
-        range: {
-          data: string
-          end: string
-          start: string
-          text: string
-          timeZone: string
-        }
-      }>
+      data: Array<DaylyActivityType>
+    }
+    monthly: {
+      data: Array<DaylyActivityType>
     }
     yearly: YearlyActivityType
   }
@@ -34,6 +22,23 @@ export type WakaTimeType = {
     yearly: {
       data: Array<{ name: string; percent: number; color: string }>
     }
+  }
+}
+
+export type DaylyActivityType = {
+  grand_total: {
+    decimal: string
+    digital: string
+    hours: number
+    minutes: number
+    total_seconds: number
+  }
+  range: {
+    date: string
+    end: string
+    start: string
+    text: string
+    timeZone: string
   }
 }
 

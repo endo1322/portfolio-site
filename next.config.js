@@ -10,5 +10,6 @@ module.exports = {
       'images.unsplash.com',
       'prod-files-secure.s3.us-west-2.amazonaws.com'
     ]
-  }
+  },
+  transpilePackages: ['@mui/x-charts']
 }
