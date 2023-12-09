@@ -13,7 +13,7 @@ export const Icon = (props: IconPropsType) => {
       className={`rounded-full max-w-full h-auto align-middle  ${props.className}`}
       src={props.src}
       alt={props.alt}
-      style={{ maxWidth: props.maxWidth }}
+      style={{ maxWidth: props.maxWidth, minHeight: props.maxWidth }}
     />
   )
 }

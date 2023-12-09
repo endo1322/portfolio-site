@@ -3,7 +3,6 @@ import React from 'react'
 
 type TagPropsType = {
   children?: React.ReactNode
-  id: string
   className: string
   name: string
   color: string
@@ -27,6 +26,7 @@ const bgColor: {
 export const Tag = (props: TagPropsType) => {
   return (
     <li
+      id={props.name}
       className={`px-2 rounded-md text-white relative z-10 ${
         bgColor[props.color]
       } ${props.className}`}
