@@ -1,10 +1,11 @@
 import { YearlyActivityType } from '@/types/About'
 import React from 'react'
-import CalendarHeatmap from 'react-calendar-heatmap'
+import ReactCalendarHeatmap from '@/components/molecules/ReactCalendarHeatmap'
 import 'react-calendar-heatmap/dist/styles.css'
 import { Tooltip } from 'react-tooltip'
 
 type HeatMapPropsType = {
+  className: string
   activity: YearlyActivityType
 }
 
@@ -24,8 +25,8 @@ export const HeatMap = (props: HeatMapPropsType) => {
     })
   })
   return (
-    <>
-      <CalendarHeatmap
+    <div className={`${props.className}`}>
+      <ReactCalendarHeatmap
         values={values}
         startDate={new Date(startDate)}
         endDate={new Date(endDate)}
@@ -40,7 +41,7 @@ export const HeatMap = (props: HeatMapPropsType) => {
             } hours writing code.`
           }
         }}
-        classForValue={(value) => {
+        classForValue={(value: { date: string; count: number }) => {
           if (value.count === 0) {
             return 'color-empty'
           } else if (value.count < 2) {
@@ -55,6 +56,6 @@ export const HeatMap = (props: HeatMapPropsType) => {
         }}
       />
       <Tooltip id="heat-tooltip" />
-    </>
+    </div>
   )
 }
