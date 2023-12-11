@@ -4,9 +4,7 @@ import { ArticleCard } from '../organisms/ArticleCard'
 import { HeroType } from '@/types/Common'
 import { AboutArticleCardType, WakaTimeType } from '@/types/About'
 import { History } from '@/components/organisms/History'
-import { HeatMap } from '@/components/molecules/HeatMap'
-import { MyPieChart } from '@/components/molecules/MyPieChart'
-import { MyBarChart } from '@/components/molecules/MyBarChart'
+import { DashBord } from '../organisms/DashBord'
 
 interface AboutTemplateProps {
   className: string
@@ -23,30 +21,19 @@ export const AboutTemplate = (props: AboutTemplateProps) => {
     <div className={`${props.className}`}>
       <Hero title={props.hero.title} text={props.hero.text} />
 
-      <MyPieChart
-        className=""
-        height={200}
-        language={props.wakaTime.language.weekly.data}
+      <DashBord
+        className={'flex full-y-container max-w-[100rem] bg-red-200 '}
+        heatMap={props.wakaTime.activity.yearly}
+        pieChart={[
+          props.wakaTime.language.weekly.data,
+          props.wakaTime.language.monthly.data,
+          props.wakaTime.language.yearly.data
+        ]}
+        barChart={[
+          props.wakaTime.activity.weekly.data,
+          props.wakaTime.activity.monthly.data
+        ]}
       />
-      <MyPieChart
-        className=""
-        height={200}
-        language={props.wakaTime.language.yearly.data}
-      />
-
-      <MyBarChart
-        clsssName=""
-        width={500}
-        height={300}
-        daylyActivity={props.wakaTime.activity.monthly.data}
-      />
-      <MyBarChart
-        clsssName=""
-        width={500}
-        height={300}
-        daylyActivity={props.wakaTime.activity.weekly.data}
-      />
-      {/* <HeatMap activity={props.wakaTime.activity.yearly} /> */}
       {/* <History className={'max-w-5xl mx-auto'} history={props.history} /> */}
       {/* <ArticleCard
            className="max-w-3xl m-auto mb-12"

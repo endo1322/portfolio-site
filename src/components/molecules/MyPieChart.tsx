@@ -4,7 +4,7 @@ import { PieChart } from '@mui/x-charts/PieChart'
 type MyPieChartPropsType = {
   className: string
   width?: number
-  height: number
+  height?: number
   data: Record<string, { percent: number; color: string }>
 }
 
@@ -29,8 +29,8 @@ export const MyPieChart = (props: MyPieChartPropsType) => {
         }
       ]}
       slotProps={{ legend: { hidden: true } }}
-      width={props.width ? props.width : props.height}
-      height={props.height}
+      // width={props.width ? props.width : props.height}
+      // height={props.height}
     />
   )
 }

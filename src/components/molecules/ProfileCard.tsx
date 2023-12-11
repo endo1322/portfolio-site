@@ -41,7 +41,7 @@ export const ProfileCard = (props: ProfileCardType) => {
 
   return (
     <Frame
-      className={`flex flex-col flex-grow p-5 items-center rounded-xl min-w-[14rem] ${props.className}`}
+      className={`flex flex-col flex-grow p-5 items-center rounded-xl ${props.className}`}
     >
       <div className="flex flex-col items-center w-4/5 pb-3 border-b-2">
         <Icon

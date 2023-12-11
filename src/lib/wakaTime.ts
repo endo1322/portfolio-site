@@ -2,6 +2,7 @@ const weeklyActivityToken = process.env.WAKATIME_WEEKLY_ACTIVITY_TOKEN
 const monthlyActivityToken = process.env.WAKATIME_MONTHLY_ACTIVITY_TOKEN
 const yearlyActivityToken = process.env.WAKATIME_YEARLY_ACTIVITY_TOKEN
 const weeklyLanguageToken = process.env.WAKATIME_WEEKLY_LANGUAGE_TOKEN
+const monthlyLanguageToken = process.env.WAKATIME_MONTHLY_LANGUAGE_TOKEN
 const yearlyLanguageToken = process.env.WAKATIME_YEARLY_LANGUAGE_TOKEN
 
 export const getWakaTime = async () => {
@@ -51,6 +52,13 @@ const getLanguage = async () => {
     }
   )
   const weeklyRes = await weekly.json()
+  const monthly = await fetch(
+    `https://wakatime.com/share/${monthlyLanguageToken}`,
+    {
+      method: 'GET'
+    }
+  )
+  const monthlyRes = await monthly.json()
   const yearly = await fetch(
     `https://wakatime.com/share/${yearlyLanguageToken}`,
     {
@@ -60,6 +68,7 @@ const getLanguage = async () => {
   const yearlyRes = await yearly.json()
   return {
     weekly: weeklyRes,
+    monthly: monthlyRes,
     yearly: yearlyRes
   }
 }

@@ -19,6 +19,9 @@ export type WakaTimeType = {
     weekly: {
       data: Array<LanguageType>
     }
+    monthly: {
+      data: Array<LanguageType>
+    }
     yearly: {
       data: Array<LanguageType>
     }

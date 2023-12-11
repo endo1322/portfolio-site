@@ -11,6 +11,13 @@
     min-height: calc(100vh - 80px);
     max-height: calc(100vh - 80px);
   }
+
+  .full-y-container {
+    height: calc(100vh - 80px);
+    min-height: calc(100vh - 80px);
+    max-height: calc(100vh - 80px);
+  }
+
   .react-calendar-heatmap .color-scale-1 {
     fill: #d6e685;
   }
