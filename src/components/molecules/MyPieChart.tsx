@@ -1,23 +1,26 @@
 import React from 'react'
 import { PieChart } from '@mui/x-charts/PieChart'
-import { LanguageType } from '@/types/About'
 
 type MyPieChartPropsType = {
   className: string
   width?: number
   height: number
-  language: Array<LanguageType>
+  data: Record<string, { percent: number; color: string }>
 }
 
 export const MyPieChart = (props: MyPieChartPropsType) => {
   const data: Array<{ value: number; label: string; color: string }> = []
-  props.language.map((value) => {
-    if (value.percent < 1) return
-    data.push({ value: value.percent, label: value.name, color: value.color })
+  Object.keys(props.data).map((value) => {
+    data.push({
+      value: props.data[value].percent,
+      label: value,
+      color: props.data[value].color
+    })
   })
 
   return (
     <PieChart
+      margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
       series={[
         {
           data,
@@ -25,7 +28,8 @@ export const MyPieChart = (props: MyPieChartPropsType) => {
           faded: { innerRadius: 0, additionalRadius: -10, color: 'gray' }
         }
       ]}
-      width={props.width ? props.width : undefined}
+      slotProps={{ legend: { hidden: true } }}
+      width={props.width ? props.width : props.height}
       height={props.height}
     />
   )
