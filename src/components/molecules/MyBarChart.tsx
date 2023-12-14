@@ -6,39 +6,56 @@ type MyBarChartPropsType = {
   clsssName: string
   width: number
   height: number
+  boolYAxis: boolean
   daylyActivity: Array<DaylyActivityType>
 }
 
 export const MyBarChart = (props: MyBarChartPropsType) => {
-  const xLabels: Array<string> = []
-  const uData: Array<number> = []
+  const xData: Array<string> = []
+  const yData: Array<number> = []
   if (props.daylyActivity.length == 7) {
     props.daylyActivity.map((value) => {
-      xLabels.push(value.range.text.slice(0, 3))
-      uData.push(Math.round((value.grand_total.total_seconds / 3600) * 10) / 10)
+      xData.push(value.range.text.slice(0, 3))
+      yData.push(Math.round((value.grand_total.total_seconds / 3600) * 10) / 10)
     })
   } else {
     props.daylyActivity.map((value) => {
-      xLabels.push(new Date(value.range.date).getDate().toString())
-      uData.push(Math.round((value.grand_total.total_seconds / 3600) * 10) / 10)
+      xData.push(
+        `${(new Date(value.range.date).getMonth() + 1).toString()}/${new Date(
+          value.range.date
+        )
+          .getDate()
+          .toString()}`
+      )
+      yData.push(Math.round((value.grand_total.total_seconds / 3600) * 10) / 10)
     })
   }
 
-  console.log(xLabels, uData)
-  const chartSetting = {
-    yAxis: [
-      {
-        label: 'coding hour (h)'
-      }
-    ],
-    width: props.width,
-    height: props.height
-  }
   return (
     <BarChart
-      xAxis={[{ scaleType: 'band', data: xLabels }]}
-      series={[{ data: uData, label: 'uv', type: 'bar' }]}
-      {...chartSetting}
+      margin={
+        props.boolYAxis
+          ? { top: 10, bottom: 30, right: 0 }
+          : { top: 10, bottom: 30, right: 0, left: 25 }
+      }
+      xAxis={[{ scaleType: 'band', data: xData }]}
+      series={[{ data: yData, label: 'coding time', type: 'bar' }]}
+      slotProps={{
+        legend: {
+          hidden: true
+        }
+      }}
+      yAxis={
+        props.boolYAxis
+          ? [
+              {
+                label: 'total coding time (h)'
+              }
+            ]
+          : undefined
+      }
+      width={props.width}
+      height={props.height}
     />
   )
 }
