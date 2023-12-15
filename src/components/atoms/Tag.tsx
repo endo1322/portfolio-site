@@ -28,7 +28,7 @@ export const Tag = (props: TagPropsType) => {
   return (
     <li
       id={props.name}
-      className={`px-2 rounded-md text-white relative z-10 ${
+      className={`px-2 rounded-md text-white relative z-10 w-fit whitespace-nowrap ${
         bgColor[props.color]
       } ${props.className}`}
     >

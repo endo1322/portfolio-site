@@ -14,7 +14,7 @@ export const BlogList = (props: BlogListPropsType) => {
 
   return (
     <div className={`flex flex-col ${props.className}`}>
-      <div className="flex flex-col mx-auto">
+      <div className="flex flex-col mx-auto xl:w-[53rem] lg:w-[45rem] md:w-[35rem] ">
         <ul className="flex flex-row gap-1 max-w-4xl flex-wrap">
           {Object.keys(props.blogList.selectedTags).length === 0 ? (
             <></>
