@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react'
 
 type TagPropsType = {
+  id?: string
   children?: React.ReactNode
   className: string
   name: string
