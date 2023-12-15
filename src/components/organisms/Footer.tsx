@@ -14,7 +14,7 @@ export const Footer = () => {
               Contact me
             </Link>
           </div>
-          <div className="text-lg">© 2023 Yuto Endo</div>
+          <div className="text-lg">Copyright © 2023 bondroid1322</div>
         </div>
       </div>
     </footer>
