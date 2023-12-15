@@ -95,6 +95,7 @@ export default function Blog(props: BlogType) {
       (value) => filterTagCount[value.id] === selectedCount
     )
     setFilteredList(filtered)
+    onPageChange({ selected: 1 })
   }, [boolSelectedTagIds])
 
   const selectedTags: TagObject = {}
@@ -124,6 +125,7 @@ export default function Blog(props: BlogType) {
           .indexOf(e.keyword.toUpperCase()) !== -1
     )
     setSearchedBlog(searched)
+    onPageChange({ selected: 1 })
   }
   const searchFormItem: SearchFormItemType = {
     keyword: {
@@ -156,6 +158,7 @@ export default function Blog(props: BlogType) {
     SetItemsPerPage(Math.trunc(blogListHeight / 150))
   }, [blogListHeight])
   const [itemsOffset, setItemsOffset] = useState<number>(0)
+  const [page, setPage] = useState<number>(1)
   const endOffset: number = itemsOffset + itemsPerPage
   const currentBlog: Array<PageObject> = hittedBlog.slice(
     itemsOffset,
@@ -166,6 +169,7 @@ export default function Blog(props: BlogType) {
     console.log(e.selected)
     const newOffset = ((e.selected - 1) * itemsPerPage) % hittedBlog.length
     setItemsOffset(newOffset)
+    setPage(e.selected)
   }
 
   const blogList = {
@@ -176,6 +180,7 @@ export default function Blog(props: BlogType) {
 
   const pagination = {
     pageCount: pageCount,
+    page: page,
     onPageChange: onPageChange
   }
 

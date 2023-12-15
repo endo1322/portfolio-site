@@ -28,6 +28,7 @@ export const BlogIndexTemplate = (props: BlogIndexTemplatePropsType) => {
       <Pagination
         className="absolute bottom-0 left-1/2 -translate-x-1/2 flex justify-center mb-5 w-96"
         count={props.pagination.pageCount}
+        page={props.pagination.page}
         onChange={(e, page) =>
           props.pagination.onPageChange({ selected: page })
         }

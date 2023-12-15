@@ -31,6 +31,7 @@ export type BlogListType = {
 
 export type PaginationType = {
   pageCount: number
+  page: number
   onPageChange: (e: { selected: number }) => void
 }
 
