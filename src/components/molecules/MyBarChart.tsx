@@ -8,6 +8,7 @@ type MyBarChartPropsType = {
   height: number
   boolYAxis: boolean
   daylyActivity: Array<DaylyActivityType>
+  label: string
 }
 
 export const MyBarChart = (props: MyBarChartPropsType) => {
@@ -32,30 +33,33 @@ export const MyBarChart = (props: MyBarChartPropsType) => {
   }
 
   return (
-    <BarChart
-      margin={
-        props.boolYAxis
-          ? { top: 10, bottom: 30, right: 0 }
-          : { top: 10, bottom: 30, right: 0, left: 25 }
-      }
-      xAxis={[{ scaleType: 'band', data: xData }]}
-      series={[{ data: yData, label: 'coding time', type: 'bar' }]}
-      slotProps={{
-        legend: {
-          hidden: true
+    <div className={`flex flex-col items-center ${props.clsssName}`}>
+      <BarChart
+        margin={
+          props.boolYAxis
+            ? { top: 10, bottom: 30, right: 0 }
+            : { top: 10, bottom: 30, right: 0, left: 25 }
         }
-      }}
-      yAxis={
-        props.boolYAxis
-          ? [
-              {
-                label: 'total coding time (h)'
-              }
-            ]
-          : undefined
-      }
-      width={props.width}
-      height={props.height}
-    />
+        xAxis={[{ scaleType: 'band', data: xData }]}
+        series={[{ data: yData, label: 'coding time', type: 'bar' }]}
+        slotProps={{
+          legend: {
+            hidden: true
+          }
+        }}
+        yAxis={
+          props.boolYAxis
+            ? [
+                {
+                  label: 'total coding time (h)'
+                }
+              ]
+            : undefined
+        }
+        width={props.width}
+        height={props.height}
+      />
+      <p className="mt-2 font-bold">{props.label}</p>
+    </div>
   )
 }

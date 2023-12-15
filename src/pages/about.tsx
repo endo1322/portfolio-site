@@ -80,17 +80,48 @@ export default function About(props: AboutType) {
       text: [
         '研究活動にのめり込み、大学院進学を希望します。',
         '前期に院試と卒研が重なり、死にかけながらどうにか生きて合格と卒業を勝ち取ります。',
-        '現在はインターンを中心に、学んだ内容のアウトプットに勤めています。'
+        '現在はインターンを中心に、学んだ内容のアウトプットに勤めています。',
+        'ですが、肩書きはフリーターです。'
       ]
     }
   ]
+
+  const dashboard = {
+    heatMap: props.wakaTime.activity.yearly,
+    pieChart: [
+      {
+        data: props.wakaTime.language.weekly.data,
+        label: 'last week'
+      },
+      {
+        data: props.wakaTime.language.monthly.data,
+        label: 'last month'
+      },
+      {
+        data: props.wakaTime.language.yearly.data,
+        label: 'last year'
+      }
+    ],
+    barChart: [
+      {
+        data: props.wakaTime.activity.weekly.data,
+        label: 'last week',
+        boolYAxis: true
+      },
+      {
+        data: props.wakaTime.activity.monthly.data,
+        label: 'last month',
+        boolYAxis: false
+      }
+    ]
+  }
 
   return (
     <AboutTemplate
       className={'container'}
       hero={hero}
       history={history}
-      wakaTime={props.wakaTime}
+      dashboard={dashboard}
       aboutArticleCard={aboutArticleCard}
     />
   )

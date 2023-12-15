@@ -69,3 +69,22 @@ export type YearlyActivityType = {
   user_id: string
   writers_only: boolean
 }
+
+export type DashboardType = {
+  heatMap: HeatMapType
+  pieChart: PieChartType
+  barChart: BarChartType
+}
+
+export type HeatMapType = YearlyActivityType
+
+export type PieChartType = Array<{
+  data: Array<LanguageType>
+  label: string
+}>
+
+export type BarChartType = Array<{
+  data: Array<DaylyActivityType>
+  label: string
+  boolYAxis: boolean
+}>
