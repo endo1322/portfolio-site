@@ -13,32 +13,34 @@ export const BlogList = (props: BlogListPropsType) => {
   console.log(blogList)
 
   return (
-    <div className={`${props.className}`}>
-      <ul className="flex flex-row gap-1 flex-wrap">
-        {Object.keys(props.blogList.selectedTags).length === 0 ? (
-          <></>
-        ) : (
-          Object.keys(props.blogList.selectedTags).map((value) => (
-            <ClearTagButton
-              key={value}
-              id={value}
-              tagValue={props.blogList.selectedTags[value]}
-              onSetBool={props.blogList.onSetBool}
-            />
-          ))
-        )}
-      </ul>
-      {blogList.map((value) => (
-        <BlogCard
-          key={value.id}
-          id={value.id}
-          coverUrl={value.coverUrl}
-          createdDate={value.createdTime.match('\\d{4}-\\d{2}-\\d{2}')}
-          title={value.properties.title}
-          multiSelect={value.properties.tag}
-          onSetBool={props.blogList.onSetBool}
-        />
-      ))}
+    <div className={`flex flex-col ${props.className}`}>
+      <div className="flex flex-col mx-auto">
+        <ul className="flex flex-row gap-1 max-w-4xl flex-wrap">
+          {Object.keys(props.blogList.selectedTags).length === 0 ? (
+            <></>
+          ) : (
+            Object.keys(props.blogList.selectedTags).map((value) => (
+              <ClearTagButton
+                key={value}
+                id={value}
+                tagValue={props.blogList.selectedTags[value]}
+                onSetBool={props.blogList.onSetBool}
+              />
+            ))
+          )}
+        </ul>
+        {blogList.map((value) => (
+          <BlogCard
+            key={value.id}
+            id={value.id}
+            coverUrl={value.coverUrl}
+            createdDate={value.createdTime.match('\\d{4}-\\d{2}-\\d{2}')}
+            title={value.properties.title}
+            multiSelect={value.properties.tag}
+            onSetBool={props.blogList.onSetBool}
+          />
+        ))}
+      </div>
     </div>
   )
 }

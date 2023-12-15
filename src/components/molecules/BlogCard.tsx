@@ -16,7 +16,7 @@ interface BlogCardProps {
 export const BlogCard = (props: BlogCardProps) => {
   const blogUrl: string = `/blog/${props.id}`
   return (
-    <div className="max-w-4xl h-[9.5rem] mx-auto my-3 mb-5 p-2 bg-white hover:bg-neutral-300 rounded-lg relative flex items-center">
+    <div className="max-w-4xl h-[9.5rem] my-3 mb-5 p-2 bg-white hover:bg-neutral-300 rounded-lg relative flex items-center">
       <Link href={blogUrl} className="inset-0 absolute" />
       {props.coverUrl && (
         <div className="flex-shrink-0 mr-4">
