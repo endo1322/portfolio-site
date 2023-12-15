@@ -6,7 +6,7 @@ import PoweredByVercel from '../atoms/PoweredByVercel'
 
 export const Footer = () => {
   return (
-    <footer className="bg-neutral-400 absolute inset-x-0 bottom-0">
+    <footer className="bg-neutral-400 absolute inset-x-0 bottom-0 h-[7rem]">
       <div className="py-3">
         <div className="flex flex-col items-center max-w-7xl w-11/12 mx-auto">
           <div className="flex justify-center items-center">
