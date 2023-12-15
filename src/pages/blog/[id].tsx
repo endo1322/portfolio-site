@@ -40,7 +40,7 @@ export default function BlogPage(props: BloggPageProps) {
 
   const link = {
     href: '/blog',
-    tag: '← Go home'
+    tag: '← Back to list'
   }
 
   if (!props.page || !props.blocks) {

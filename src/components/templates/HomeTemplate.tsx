@@ -17,7 +17,10 @@ export const HomeTemplate = (props: HomeTemplatePropsType) => {
     <div className={`${props.className}`}>
       <Hero title={props.hero.title} text={props.hero.text} />
       <Profile className={'max-w-5xl mb-10 m-auto'} profile={props.profile} />
-      <SlideBlogList className={'max-w-5xl m-auto'} blogList={props.blogList} />
+      <SlideBlogList
+        className={'max-w-5xl m-auto mb-10'}
+        blogList={props.blogList}
+      />
     </div>
   )
 }
