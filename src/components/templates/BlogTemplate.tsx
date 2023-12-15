@@ -24,10 +24,11 @@ export const BlogTemplate = (props: BlogTemplateProps) => {
   return (
     <div className={`${props.className}`}>
       <Hero title={props.hero.title} />
-      <div className="flex flex-row m-auto max-w-7xl gap-10 mb-12">
+      <div className="flex flex-row m-auto max-w-7xl gap-10">
         <ArticleCard
           className="max-w-3xl m-auto"
           title={props.blogArticleCard.title}
+          multiSelect={props.blogArticleCard.multiSelect}
           date={props.blogArticleCard.date}
           contents={props.blogArticleCard.contents}
         />
@@ -39,7 +40,9 @@ export const BlogTemplate = (props: BlogTemplateProps) => {
         )}
       </div>
       <Link href={props.link.href}>
-        <div className="flex justify-center my-2 text-lg">{props.link.tag}</div>
+        <div className="flex justify-center my-4 font-bold text-lg">
+          {props.link.tag}
+        </div>
       </Link>
     </div>
   )

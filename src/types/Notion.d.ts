@@ -1,7 +1,12 @@
 export type Page = {
   id: string
   archived: boolean
-  //   cover: null
+  cover: {
+    type: string | null
+    [key: string]: {
+      url: string
+    }
+  }
   //   icon: null
   created_by: {
     object: string
@@ -27,10 +32,21 @@ export type Page = {
     tag: {
       id: string
       type: string
-      //   multi_select: Array
+      multi_select: Array<MultiSelect>
+    }
+    fullText: {
+      id: string
+      type: string
+      rich_text: Array<RichText>
     }
   }
   url: string
+}
+
+export type MultiSelect = {
+  color: string
+  id: string
+  name: string
 }
 
 export type RichText = {

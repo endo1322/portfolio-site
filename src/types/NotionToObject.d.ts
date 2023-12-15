@@ -26,3 +26,25 @@ export type TocObject = {
   type: string
   text: RichTextObject | undefined
 }
+
+export type PageObject = {
+  id: string
+  coverUrl: string | null
+  createdTime: string
+  lastEditedTime: string
+  object: string
+  properties: {
+    title: string
+    tag: TagObject
+    fullText: string | null
+  }
+  url: string
+}
+
+export type TagObject = Record<string, TagValue>
+
+type TagValue = {
+  name: string
+  color: string
+  pageId: Array<string>
+}

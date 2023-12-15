@@ -29,6 +29,7 @@ export default function BlogPage(props: BloggPageProps) {
 
   const blogArticleCard: BlogArticleCardType = {
     title: props.page.properties.title.title,
+    multiSelect: props.page.properties.tag.multi_select,
     date: {
       createDate: props.page['created_time'],
       updateDate: props.page['last_edited_time']
@@ -39,7 +40,7 @@ export default function BlogPage(props: BloggPageProps) {
 
   const link = {
     href: '/blog',
-    tag: '← Go home'
+    tag: '← Back to list'
   }
 
   if (!props.page || !props.blocks) {

@@ -1,9 +1,15 @@
-import { RichText, Page } from '@/types/Notion'
-import { BlockObject, TocObject } from '@/types/NotionToObject'
-import { ReactPaginateProps } from 'react-paginate'
+import { RichText, Page, MultiSelect } from '@/types/Notion'
+import {
+  BlockObject,
+  PageObject,
+  TagObject,
+  TagProperty,
+  TocObject
+} from '@/types/NotionToObject'
 
 export type BlogArticleCardType = {
   title: Array<RichText>
+  multiSelect: Array<MultiSelect>
   date: {
     createDate: string
     updateDate: string
@@ -17,6 +23,60 @@ export type LinkType = {
   tag: string
 }
 
-export type BlogListType = Array<Page>
+export type BlogListType = {
+  currentBlog: Array<PageObject>
+  selectedTags: TagObject
+  onSetBool: (e: { selectedTagId: string }) => void
+}
 
-export type ReactPagenateType = ReactPaginateProps
+export type PaginationType = {
+  pageCount: number
+  page: number
+  onPageChange: (e: { selected: number }) => void
+}
+
+export type SearchFormType = {
+  keyword: string
+}
+
+export type SearchFormItemType = {
+  keyword: {
+    name: string
+    type: string
+    placeholder: string
+    required: false
+  }
+}
+
+export type SearchSubmitItemType = {
+  type: string
+  value: string
+  onSubmit: (e: { keyword: string }) => void
+}
+
+type useFormMethodsType<
+  TFieldValues extends FieldValues = FieldValues,
+  TContext = any
+> = {
+  watch: UseFormWatch<TFieldValues>
+  getValues: UseFormGetValues<TFieldValues>
+  getFieldState: UseFormGetFieldState<TFieldValues>
+  setError: UseFormSetError<TFieldValues>
+  clearErrors: UseFormClearErrors<TFieldValues>
+  setValue: UseFormSetValue<TFieldValues>
+  trigger: UseFormTrigger<TFieldValues>
+  formState: FormState<TFieldValues>
+  resetField: UseFormResetField<TFieldValues>
+  reset: UseFormReset<TFieldValues>
+  handleSubmit: UseFormHandleSubmit<TFieldValues>
+  unregister: UseFormUnregister<TFieldValues>
+  control: Control<TFieldValues, TContext>
+  register: UseFormRegister<TFieldValues>
+  setFocus: UseFormSetFocus<TFieldValues>
+}
+
+export type SearchBarType = {
+  searchFormItem: SearchFormItemType
+  searchSubmitItem: SearchSubmitItemType
+  useFormMethods: useFormMethodsType
+}

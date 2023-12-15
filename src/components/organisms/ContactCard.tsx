@@ -51,7 +51,11 @@ export const ContactCard = (props: ContactCardPropsType) => {
             placeholder={props.formItems.textarea.placeholder}
             required={props.formItems.textarea.required}
           />
-          <Button type={props.submitItem.type} value={props.submitItem.value} />
+          <Button
+            className={'mx-auto'}
+            type={props.submitItem.type}
+            value={props.submitItem.value}
+          />
         </form>
       </FormProvider>
     </Frame>

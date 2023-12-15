@@ -15,11 +15,11 @@ export const Nav = () => {
             <div className="hover:text-neutral-400">About</div>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <Link href="/work">
             <div className="hover:text-neutral-400">Work</div>
           </Link>
-        </li>
+        </li> */}
         <li>
           <Link href="/blog">
             <div className="hover:text-neutral-400">Blog</div>
