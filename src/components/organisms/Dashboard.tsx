@@ -89,8 +89,9 @@ export const Dashboard = (props: DashboardPropsType) => {
                 <div className="flex w-4/5">
                   <div className="flex w-full max-w-full overflow-auto">
                     <div className="flex flex-row w-full justify-around ml-5 gap-5 min-w-[30rem]">
-                      {myPieChartList.map((value) => (
+                      {myPieChartList.map((value, index) => (
                         <MyPieChart
+                          key={index}
                           className=""
                           data={value.data}
                           label={value.label}
@@ -131,8 +132,9 @@ export const Dashboard = (props: DashboardPropsType) => {
                 <p className="font-bold text-xl ml-2">Coding Activity</p>
               </div>
               <div className="flex flex-row p-3 pb-0 w-full gap-5 overflow-auto">
-                {props.barChart.map((value) => (
+                {props.barChart.map((value, index) => (
                   <MyBarChart
+                    key={index}
                     clsssName="flex-grow"
                     width={500}
                     height={280}
