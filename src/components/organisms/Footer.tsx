@@ -2,6 +2,7 @@ import React from 'react'
 import Contact from '@/pages/contact'
 import { Logo } from '../atoms/Logo'
 import Link from 'next/link'
+import PoweredByVercel from '../atoms/PoweredByVercel'
 
 export const Footer = () => {
   return (
@@ -14,7 +15,14 @@ export const Footer = () => {
               Contact me
             </Link>
           </div>
-          <div className="text-lg">Copyright © 2023 bondroid1322</div>
+          <div className="flex flex-row gap-5 items-center">
+            <div className="text-md">© 2023 bondroid1322</div>
+            <PoweredByVercel
+              svgProps={{
+                width: 120
+              }}
+            />
+          </div>
         </div>
       </div>
     </footer>
