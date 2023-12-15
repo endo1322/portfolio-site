@@ -3,6 +3,7 @@ import { faAddressCard } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import Link from 'next/link'
+import { Icon } from '@/components/atoms/Icon'
 
 type ProfilePropsType = {
   className: string
@@ -23,11 +24,11 @@ export const Profile = (props: ProfilePropsType) => {
       </div>
       <div className="flex flex-row p-3 justify-center">
         <div className="px-4">
-          <img
-            className="shadow-lg rounded-full max-w-full h-auto align-middle border-none"
+          <Icon
+            className="shadow-lg"
             src={props.profile.icon}
-            alt="profile icon"
-            style={{ maxWidth: '150px' }}
+            alt={'home profile icon'}
+            maxWidth="150px"
           />
         </div>
         <div className="my-auto">
