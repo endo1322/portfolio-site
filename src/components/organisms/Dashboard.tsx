@@ -63,9 +63,9 @@ export const Dashboard = (props: DashboardPropsType) => {
   return (
     <div className={`flex flex-col p-5 h-full ${props.className}`}>
       <div className="flex flex-col h-full max-w-full justify-between gap-5">
-        <div className="flex flex-row h-[60%] max-w-full justify-between gap-5">
-          <div className="flex flex-col w-fit">
-            <div className="flex flex-col h-full justify-between">
+        <div className="flex lg:flex-row flex-col h-[60%] max-w-full justify-between gap-5">
+          <div className="flex flex-col lg:w-fit w-full">
+            <div className="flex flex-col h-full justify-between lg:gap-0 gap-5">
               <div className="flex flex-grow w-full justify-center">
                 <h1 className="text-5xl font-bold font-righteous my-auto">
                   About me !!
@@ -73,11 +73,11 @@ export const Dashboard = (props: DashboardPropsType) => {
               </div>
 
               <div className="flex w-full">
-                <ProfileCard className="shadow-lg min-w-[14rem] max-w-[24rem]" />
+                <ProfileCard className="shadow-lg min-w-[14rem] lg:max-w-[24rem] w-full" />
               </div>
             </div>
           </div>
-          <div className="flex flex-col flex-grow flex-shrink max-w-full min-w-[33.25rem] justify-between gap-5">
+          <div className="flex flex-col flex-grow flex-shrink max-w-full lg:min-w-[33.25rem] justify-between gap-5">
             <Frame className="flex flex-col h-full p-5 bg-white shadow-lg max-w-full">
               <div className="flex flex-row items-center ml-5">
                 <FontAwesomeIcon icon={faChartPie} size="lg" />
@@ -88,11 +88,11 @@ export const Dashboard = (props: DashboardPropsType) => {
               <div className="flex flex-row h-full p-3 pb-0 w-full">
                 <div className="flex w-4/5">
                   <div className="flex w-full max-w-full overflow-auto">
-                    <div className="flex flex-row w-full justify-around ml-5 gap-5 min-w-[30rem]">
+                    <div className="flex lg:flex-row flex-col w-full justify-around ml-5 gap-5 lg:min-w-[30rem]">
                       {myPieChartList.map((value, index) => (
                         <MyPieChart
                           key={index}
-                          className=""
+                          className="lg:h-[200px] md:h-[250px] h-[200px]"
                           data={value.data}
                           label={value.label}
                         />
@@ -131,11 +131,11 @@ export const Dashboard = (props: DashboardPropsType) => {
                 <FontAwesomeIcon icon={faChartColumn} size="lg" />
                 <p className="font-bold text-xl ml-2">Coding Activity</p>
               </div>
-              <div className="flex flex-row p-3 pb-0 w-full gap-5 overflow-auto">
+              <div className="flex lg:flex-row flex-col p-3 pb-0 w-full gap-5 overflow-auto mx-auto">
                 {props.barChart.map((value, index) => (
                   <MyBarChart
                     key={index}
-                    clsssName="flex-grow"
+                    clsssName="lg:flex-grow md:w-full w-[500px]"
                     width={500}
                     height={280}
                     daylyActivity={value.data}
