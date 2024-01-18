@@ -19,7 +19,7 @@ export const AboutTemplate = (props: AboutTemplateProps) => {
       {/* <Hero title={props.hero.title} text={props.hero.text} /> */}
       <Dashboard
         className={
-          'flex full-y-container mb-5 max-w-[100rem] min-w-[60rem] justify-center'
+          'flex lg:full-y-container h-fit mb-5 lg:max-w-[100rem] lg:min-w-[60rem] justify-center items-center'
         }
         heatMap={props.dashboard.heatMap}
         pieChart={props.dashboard.pieChart}
