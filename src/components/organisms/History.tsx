@@ -23,17 +23,19 @@ export const History = (props: HistoryPropsType) => {
             <div className="backdrop-blur flex-grow">
               {/* ここから要素 */}
               <div className="flex flex-row h-full relative">
-                <div className="w-1/5">
+                <div className="sm:w-1/5 w-3/12">
                   <div className="flex sticky top-[7.5rem] h-max w-full">
                     <Sircle
-                      clsssName="w-40 h-40 mt-10 mx-auto bg-neutral-400 bg-opacity-70 shadow-lg"
+                      clsssName="lg:w-40 lg:h-40 md:w-36 md:h-36 sm:w-32 sm:h-32 w-20 h-20 mt-10 mx-auto bg-neutral-400 bg-opacity-70 shadow-lg"
                       item={value.year}
-                      itemClassName={'text-3xl text-slate-50 font-bold'}
+                      itemClassName={
+                        'md:text-3xl sm:text-2xl text-xl text-slate-50 font-bold'
+                      }
                     />
                   </div>
                 </div>
 
-                <div className="w-3/5 sticky top-[7.5rem] my-auto">
+                <div className="sm:w-3/5 w-8/12 w-sticky top-[7.5rem] my-auto">
                   <Frame className="bg-neutral-400 bg-opacity-50 w-fit mx-auto rounded-lg shadow-lg">
                     <div className=" text-center py-10 px-5">
                       {value.text.map((item, index) => (
