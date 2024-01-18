@@ -39,6 +39,10 @@ export const ProfileCard = (props: ProfileCardType) => {
     }
   }, [, windowSize])
 
+  const xURL = process.env.NEXT_PUBLIC_X_URL || ''
+  const githubURL = process.env.NEXT_PUBLIC_GITHUB_URL || ''
+  const atcoderURL = process.env.NEXT_PUBLIC_ATCODER_URL || ''
+
   return (
     <Frame
       className={`flex flex-col flex-grow p-5 items-center rounded-xl ${props.className}`}
@@ -65,29 +69,29 @@ export const ProfileCard = (props: ProfileCardType) => {
           </div>
         </div>
         <div className="flex flex-row gap-3">
-          <Link href={'https://twitter.com/d1442970593996'}>
+          <Link href={xURL} className="w-[36px]">
             <FontAwesomeIcon
               className="rounded-full p-1.5 shadow-md border-b"
               icon={faXTwitter}
               size="xl"
             />
           </Link>
-          <Link href={'https://github.com/endo1322'}>
+          <Link href={githubURL} className="w-[36px]">
             <FontAwesomeIcon
               className="rounded-full p-1.5 shadow-md border-b"
               icon={faGithub}
               size="xl"
             />
           </Link>
-          <Link href={'https://atcoder.jp/users/bondroid1322'}>
+          <Link href={atcoderURL} className="w-[36px]">
             <Icon
-              className="shadow-md p-1.5 border-b"
+              className="shadow-md p-1.5 border-b w-full"
               src="/atcoder.svg"
               alt="about profile icon"
               maxWidth="36px"
             />
           </Link>
-          <Link href={'/contact'}>
+          <Link href={'/contact'} className="w-[36px]">
             <FontAwesomeIcon
               className="rounded-full p-1.5 shadow-md border-b"
               icon={faPaperPlane}
